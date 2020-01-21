@@ -10,6 +10,10 @@ public class CameraController : MonoBehaviour
     public float targetRotateSpeed;
     private Camera theCamera;
 
+    public Vector3 offset;
+    readonly private Space offsetPositionSpace = Space.Self;
+    readonly private bool lookAt = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +24,13 @@ public class CameraController : MonoBehaviour
     void Update()
     {
         RotateToMousePosition();
+    }
+    private void FixedUpdate()
+    {
+        if (target != null)
+        {
+            Refresh();
+        }
     }
 
     void RotateToMousePosition()
@@ -50,6 +61,33 @@ public class CameraController : MonoBehaviour
             targetRotation = Quaternion.LookRotation(lookVector, Vector3.up);
             target.rotation = Quaternion.RotateTowards(target.rotation, targetRotation, targetRotateSpeed * Time.deltaTime);
 
+        }
+    }
+    public void Refresh()
+    {
+        if (offsetPositionSpace == Space.Self)
+        {
+            if (target != null)
+            {
+                transform.position = target.TransformPoint(offset);
+            }
+        }
+        else
+        {
+            transform.position = target.position + offset;
+        }
+        //Figure out the rotation
+        if (lookAt)
+        {
+
+            if (target != null)
+            {
+                transform.LookAt(target);
+            }
+        }
+        else
+        {
+            transform.rotation = target.rotation;
         }
     }
 }
