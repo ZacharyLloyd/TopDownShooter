@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         //Pass input to the pawn
+        pawn.CheckCrouch(new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")));
         pawn.Move(new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")));
     }
 }
