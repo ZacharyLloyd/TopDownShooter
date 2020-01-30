@@ -6,10 +6,13 @@ using UnityEngine;
 [RequireComponent(typeof(Camera))]
 public class CameraController : MonoBehaviour
 {
-    public Transform target;
-    public float targetRotateSpeed;
+    [Header("Camera Variables")]
+    [SerializeField]
+    Transform target;
+    [SerializeField, Range(0f, 500f), Tooltip("The speed at which the camera will rotate the player")]
+    float targetRotateSpeed;
     private Camera theCamera;
-
+    [SerializeField, Tooltip("The offset for the camera coming off the player")]
     public Vector3 offset;
     readonly private Space offsetPositionSpace = Space.Self;
     readonly private bool lookAt = true;
@@ -18,6 +21,7 @@ public class CameraController : MonoBehaviour
     void Start()
     {
         theCamera = GetComponent<Camera>();
+        target = FindObjectOfType<PlayerPawn>().transform;
     }
 
     // Update is called once per frame
@@ -32,7 +36,11 @@ public class CameraController : MonoBehaviour
             Refresh();
         }
     }
-
+    /// <summary>
+    /// This function is use to have the camera rotate towards where the mouse is pointing
+    /// on a plane created in memory. It that takes that point and starts rotating the camera
+    /// to that point at the speed set by targetRotateSpeed in the editor
+    /// </summary>
     void RotateToMousePosition()
     {
         // Define the plane that the target is on
@@ -63,8 +71,15 @@ public class CameraController : MonoBehaviour
 
         }
     }
+    /// <summary>
+    /// This function is basically an update function that will always make sure that
+    /// the camera is rotating towards where the mouse is on the plane and that the camera is
+    /// always following the target.
+    /// </summary>
     public void Refresh()
     {
+        //Checks to make sure the target exists
+        //along with making sure the camera is at the offset position
         if (offsetPositionSpace == Space.Self)
         {
             if (target != null)
@@ -72,11 +87,12 @@ public class CameraController : MonoBehaviour
                 transform.position = target.TransformPoint(offset);
             }
         }
+        //Add the offset to the camera's position
         else
         {
             transform.position = target.position + offset;
         }
-        //Figure out the rotation
+        //Set the transform's rotation of the camera to the same as the player
         if (lookAt)
         {
 

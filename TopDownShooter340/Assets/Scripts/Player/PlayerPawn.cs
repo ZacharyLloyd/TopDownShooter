@@ -6,7 +6,7 @@ public class PlayerPawn : MonoBehaviour
 {
     public Animator animator;
     public float speed;
-    bool isCrouching;
+    [SerializeField]bool isCrouching;
 
     // Start is called before the first frame update
     void Start()

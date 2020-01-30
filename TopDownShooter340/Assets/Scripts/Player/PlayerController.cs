@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public PlayerPawn pawn;
+    [SerializeField] PlayerPawn pawn;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        pawn = GetComponentInChildren<PlayerPawn>();
     }
 
     // Update is called once per frame

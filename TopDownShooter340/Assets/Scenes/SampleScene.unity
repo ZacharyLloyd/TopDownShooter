@@ -1001,7 +1001,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eca0032928190224cbcca5ce6b693f84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pawn: {fileID: 1009528659}
+  pawn: {fileID: 0}
 --- !u!1 &844438177
 GameObject:
   m_ObjectHideFlags: 0
@@ -1190,7 +1190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c835ad372ca381c4080e6695553187c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 1009528657}
+  target: {fileID: 0}
   targetRotateSpeed: 360
   offset: {x: 0, y: 7, z: 0}
 --- !u!1001 &1009528656
@@ -1293,6 +1293,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
   speed: 20
+  isCrouching: 0
 --- !u!136 &1009528660
 CapsuleCollider:
   m_ObjectHideFlags: 0
