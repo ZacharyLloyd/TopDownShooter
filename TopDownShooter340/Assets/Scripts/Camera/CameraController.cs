@@ -13,7 +13,7 @@ public class CameraController : MonoBehaviour
     float targetRotateSpeed;
     private Camera theCamera;
     [SerializeField, Tooltip("The offset for the camera coming off the player")]
-    public Vector3 offset;
+    private Vector3 offset;
     readonly private Space offsetPositionSpace = Space.Self;
     readonly private bool lookAt = true;
 

@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         //Pass input to the pawn
         pawn.CheckCrouch(new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")));
