@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    [Header("IK Information")]
-    public Transform desiredLeftHand;
-    public Transform desiredRightHand;
+    [Header("Transform Postions")]
+    public Transform gunSlot; //position where gun will be
+    public Transform desiredLeftHand; //left hand position
+    public Transform desiredRightHand; //right hand position
 
-    
+
     public enum weaponType
     {
         none,
