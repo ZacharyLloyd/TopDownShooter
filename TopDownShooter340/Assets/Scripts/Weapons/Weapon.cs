@@ -8,7 +8,11 @@ public class Weapon : MonoBehaviour
     public Transform gunSlot; //position where gun will be
     public Transform desiredLeftHand; //left hand position
     public Transform desiredRightHand; //right hand position
+    public Transform pointOfFire; //where the bullet will shoot from
 
+    [Header("Shooting Variables")]
+    public int rateOfFire; //how fast the weapon can shoot
+    public int bulletTravelSpeed; //how fast the bullet moves
 
     public enum weaponType
     {
@@ -25,10 +29,8 @@ public class Weapon : MonoBehaviour
     {
         
     }
-
-    // Update is called once per frame
-    void Update()
+    public virtual void Shoot(Weapon weapon)
     {
-        
+
     }
 }

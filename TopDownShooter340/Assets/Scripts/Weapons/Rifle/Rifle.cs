@@ -9,10 +9,8 @@ public class Rifle : Weapon
     {
         
     }
-
-    // Update is called once per frame
-    void Update()
+    public override void Shoot(Weapon weapon)
     {
-        
+        base.Shoot(weapon);
     }
 }
