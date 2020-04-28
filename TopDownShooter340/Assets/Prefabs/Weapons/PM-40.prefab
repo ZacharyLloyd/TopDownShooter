@@ -262,12 +262,13 @@ Transform:
   m_GameObject: {fileID: 748140641328173423}
   m_LocalRotation: {x: -0.00000013240823, y: -0.7071068, z: -0.7071068, w: 0.00000013240823}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.0011606641, y: 0.0011606641, z: 0.0011606641}
+  m_LocalScale: {x: 0.001160666, y: 0.0011606651, z: 0.0011606651}
   m_Children:
   - {fileID: 748140641327870067}
   - {fileID: 748140641327889671}
   - {fileID: 748140641327855229}
   - {fileID: 748140641327891653}
+  - {fileID: 6988127668313441765}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 270, y: 180.00002, z: 0}
@@ -332,6 +333,9 @@ MonoBehaviour:
   gunSlot: {fileID: 0}
   desiredLeftHand: {fileID: 0}
   desiredRightHand: {fileID: 0}
+  pointOfFire: {fileID: 0}
+  rateOfFire: 0
+  bulletTravelSpeed: 0
   currentWeaponType: 1
 --- !u!1 &748140641328175759
 GameObject:
@@ -411,3 +415,33 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!1 &2935030803767927527
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6988127668313441765}
+  m_Layer: 0
+  m_Name: PointOfFire
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6988127668313441765
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2935030803767927527}
+  m_LocalRotation: {x: 0.00000013240823, y: 0.7071068, z: 0.7071068, w: 0.00000013240823}
+  m_LocalPosition: {x: 0, y: 85.6, z: 48}
+  m_LocalScale: {x: 861.5747, y: 861.57526, z: 861.57526}
+  m_Children: []
+  m_Father: {fileID: 748140641327842145}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

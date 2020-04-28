@@ -29,7 +29,11 @@ public class Weapon : MonoBehaviour
     {
         
     }
-    public virtual void Shoot(Weapon weapon)
+    protected virtual void Shoot(Weapon weapon)
+    {
+
+    }
+    public virtual void AddAmmo(Stats stats)
     {
 
     }

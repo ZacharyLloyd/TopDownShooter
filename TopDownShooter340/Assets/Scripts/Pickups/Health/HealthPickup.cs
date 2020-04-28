@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealthPickup : MonoBehaviour
+public class HealthPickup : Pickup
 {
     // Start is called before the first frame update
     void Start()
@@ -14,5 +14,13 @@ public class HealthPickup : MonoBehaviour
     void Update()
     {
         
+    }
+    protected override void OnApplyPickup(GameObject target)
+    {
+
+    }
+    protected override void OnRemovePickup(GameObject target)
+    {
+
     }
 }

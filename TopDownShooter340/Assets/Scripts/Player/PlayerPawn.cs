@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Rework this into pawn then come back here and fill it out
 public class PlayerPawn : MonoBehaviour
 {
     [Header("Components Needed")]
