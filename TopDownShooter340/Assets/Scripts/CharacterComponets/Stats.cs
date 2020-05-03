@@ -9,13 +9,13 @@ public class Stats : MonoBehaviour
     public PlayerPawn pawn;
 
     [Header("Health")]
-    [SerializeField, Range(0f, 100f), Tooltip("Current health")] public int currentHealth;
-    [SerializeField, Range(0f, 100f), Tooltip("Current max health")] private int maxHealth;
+    [SerializeField, Range(0f, 100f), Tooltip("Current health")] public float currentHealth;
+    [SerializeField, Range(0f, 100f), Tooltip("Current max health")] private float maxHealth;
     public Image healthFill;
 
     [Header("AmmoDisplay")]
-    public TMPro.TextMeshProUGUI currentAmmoText;
-    public TMPro.TextMeshProUGUI maxAmmoText;
+    public TextMeshProUGUI currentAmmoText;
+    public TextMeshProUGUI maxAmmoText;
 
     [Header("Weapon")]
     public Weapon startingWeapon;
@@ -44,6 +44,8 @@ public class Stats : MonoBehaviour
         inventory[0] = startingWeapon;
     }
 
+
+
     /// <summary>
     /// Reduce health or shield by damageToTake parameter
     /// If our health is less than or equal to 0 then kill the pawn
@@ -51,13 +53,20 @@ public class Stats : MonoBehaviour
     /// <param name="damageToTake">Damage passed in by the projectile we were hit by</param>
     public void TakeDamage(float damageToTake)
     {
-        //TODO : fill this in
+        currentHealth -= damageToTake;
+        HealthUIUpdate();
+        if(currentHealth == 0)
+        {
+            pawn.isDead = true;
+            Destroy(this);
+        }
     }
-
+    //Filling the health ui to match the players health
     void HealthUIUpdate()
     {
         if(healthFill != null)
         {
+            //fill amount is equal to current health
             healthFill.fillAmount = currentHealth / maxHealth;
         }
     }
@@ -66,7 +75,28 @@ public class Stats : MonoBehaviour
     /// </summary>
     void AmmoUIUpdate()
     {
-
+        if(currentAmmoText != null && maxAmmoText != null)
+        {
+            //figure out what weapon is equipped and display text based off that
+            if(weaponEquipped.currentWeaponType == Weapon.weaponType.pistol)
+            {
+                //currentammotext being switched to pistol ammo count
+                currentAmmoText.text = pistolAmmoCurrent.ToString();
+                maxAmmoText.text = pistolAmmoMax.ToString();
+            }
+            if(weaponEquipped.currentWeaponType == Weapon.weaponType.smg)
+            {
+                //currentammotext being switched to smg ammo count
+                currentAmmoText.text = smgAmmoCurrent.ToString();
+                maxAmmoText.text = smgAmmoMax.ToString();
+            }
+            if(weaponEquipped.currentWeaponType == Weapon.weaponType.rifle)
+            {
+                //currentammotext being switched to rifle ammo count
+                currentAmmoText.text = rifleAmmoCurrent.ToString();
+                maxAmmoText.text = rifleAmmoMax.ToString();
+            }
+        }
     }
     /// <summary>
     /// Update the inventory when new items to the inventory or when actor is spawned
@@ -77,8 +107,37 @@ public class Stats : MonoBehaviour
     ///     if the active weapon is not then set hud slot j to this image and set the keybind the the inventory slot iteration
     /// if the inventory slot is null then deactivate the slot, so we don't clutter the UI
     /// </summary>
-    public void InventoryUIUpdate()
+    public void inventoryUIUpdate()
     {
-        //TODO : Fill this in
+        //HUD is what is used to display weapons in inventory
+        HUD display = GameManager.instance.headsUpDisplay;
+        int j = 1;
+        //Cycle through inventory and display ui accordingly
+        for (int i = 0; i < inventory.Length; i++)
+        {
+            if (inventory[i] != null)
+            {
+                if (weaponEquipped != null)
+                {
+                    if (weaponEquipped.GetType() == inventory[i].GetType())
+                    {
+                        display.weaponSlots[0].slotImage.sprite = weaponEquipped.weaponSprite;
+                        display.weaponSlots[0].keybindNumber.text = (i + 1).ToString();
+                        display.weaponSlots[0].gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        display.weaponSlots[j].slotImage.sprite = inventory[i].weaponSprite;
+                        display.weaponSlots[j].keybindNumber.text = (i + 1).ToString();
+                        display.weaponSlots[j].gameObject.SetActive(true);
+                        j++;
+                    }
+                }
+            }
+            else
+            {
+                display.weaponSlots[i].gameObject.SetActive(false);
+            }
+        }
     }
 }

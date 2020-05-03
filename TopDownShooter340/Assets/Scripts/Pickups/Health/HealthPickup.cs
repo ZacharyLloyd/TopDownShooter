@@ -15,11 +15,11 @@ public class HealthPickup : Pickup
     {
         
     }
-    protected override void OnApplyPickup(GameObject target)
+    public void OnApplyPickup(GameObject target)
     {
 
     }
-    protected override void OnRemovePickup(GameObject target)
+    public void OnRemovePickup(GameObject target)
     {
 
     }

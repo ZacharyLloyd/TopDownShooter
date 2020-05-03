@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     [SerializeField] private List<GameObject> spawnedPlayers;
 
+    public HUD headsUpDisplay;
+
     //Awake runs before all Starts
     private void Awake()
     {

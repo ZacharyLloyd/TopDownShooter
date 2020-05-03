@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
+    [Header("UI")]
+    public Sprite weaponSprite;
+ 
+
     [Header("Transform Postions")]
     public Transform gunSlot; //position where gun will be
     public Transform desiredLeftHand; //left hand position
@@ -11,8 +15,17 @@ public class Weapon : MonoBehaviour
     public Transform pointOfFire; //where the bullet will shoot from
 
     [Header("Shooting Variables")]
-    public int rateOfFire; //how fast the weapon can shoot
-    public int bulletTravelSpeed; //how fast the bullet moves
+    public float bulletTravelSpeed; //how fast the bullet moves
+    public float damage;
+    protected float shootCooldownCurrent;
+    protected float shootCooldownMax;
+
+    [Header("Bullet to shoot")]
+    public Bullet bulletPrefab;
+
+    [Header("Ammo Info")]
+    [SerializeField]
+    protected int ammoToAdd;
 
     public enum weaponType
     {
@@ -29,9 +42,17 @@ public class Weapon : MonoBehaviour
     {
         
     }
-    protected virtual void Shoot(Weapon weapon)
+    private void Update()
     {
-
+        if(shootCooldownCurrent >= 0)
+        {
+            shootCooldownCurrent -= Time.deltaTime;
+        }
+    }
+    public virtual void Shoot(Stats stats)
+    {
+        Bullet bullet = Instantiate(bulletPrefab, pointOfFire);
+        bullet.weaponThatShot = this;
     }
     public virtual void AddAmmo(Stats stats)
     {

@@ -6,14 +6,9 @@ public class WeaponPickup : Pickup
 {
     public Weapon weapon;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
     protected override void OnPickup(GameObject target)
     {
-        Stats targetStats = target.GetComponent<Stats>();
+        Stats targetStats = target.GetComponentInParent<Stats>();
         AddToInventory(targetStats);
         base.OnPickup(target);
     }
@@ -27,6 +22,7 @@ public class WeaponPickup : Pickup
     /// <param name="stats">reference to instigators stats, instigator is actor who entered trigger</param>
     void AddToInventory(Stats stats)
     {
+        Debug.Log(stats.name);
         for (int i = 0; i < stats.inventory.Length; i++)
         {
             if (stats.inventory[i] == weapon)
