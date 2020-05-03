@@ -247,6 +247,7 @@ GameObject:
   - component: {fileID: 4823795467671460943}
   - component: {fileID: 3253619300232005131}
   - component: {fileID: 6431861072981879782}
+  - component: {fileID: 2747915027770352597}
   m_Layer: 0
   m_Name: PM-40
   m_TagString: Untagged
@@ -261,7 +262,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4823795467669706231}
-  m_LocalRotation: {x: -0.00000013240823, y: -0.7071068, z: -0.7071068, w: 0.00000013240823}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: -0.7071068, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.001160666, y: 0.0011606651, z: 0.0011606651}
   m_Children:
@@ -270,9 +271,11 @@ Transform:
   - {fileID: 4823795467669254885}
   - {fileID: 4823795467669225565}
   - {fileID: 2912329836898238845}
+  - {fileID: 4839945243364647198}
+  - {fileID: 3200586555181638050}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 270, y: 180.00002, z: 0}
+  m_LocalEulerAnglesHint: {x: 270, y: 180, z: 0}
 --- !u!33 &4823795467670628121
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -331,12 +334,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c1c9cd69196a6f469ecc6b941a6f496, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponSprite: {fileID: 0}
   gunSlot: {fileID: 0}
-  desiredLeftHand: {fileID: 0}
-  desiredRightHand: {fileID: 0}
-  pointOfFire: {fileID: 0}
-  rateOfFire: 0
+  desiredLeftHand: {fileID: 3200586555181638050}
+  desiredRightHand: {fileID: 4839945243364647198}
+  pointOfFire: {fileID: 2912329836898238845}
   bulletTravelSpeed: 0
+  damage: 0
+  bulletPrefab: {fileID: 0}
+  ammoToAdd: 0
   currentWeaponType: 1
 --- !u!65 &6431861072981879782
 BoxCollider:
@@ -346,11 +352,25 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4823795467669706231}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 152.78459, y: 382.8826, z: 289.25726}
   m_Center: {x: 13.065963, y: 6.0587296, z: 3.4741023}
+--- !u!114 &2747915027770352597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4823795467669706231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15e0ef040c95c1a4a9018b0d2e93c4d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 0
+  weapon: {fileID: 3253619300232005131}
 --- !u!1 &4823795467669708311
 GameObject:
   m_ObjectHideFlags: 0
@@ -429,6 +449,36 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!1 &5221943097189922234
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4839945243364647198}
+  m_Layer: 0
+  m_Name: RightHandPistol
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4839945243364647198
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5221943097189922234}
+  m_LocalRotation: {x: -0.356493, y: 0.5167105, z: 0.4420513, w: 0.6407134}
+  m_LocalPosition: {x: -41, y: 35, z: 29}
+  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 4823795467669243897}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: -66.014, y: 58.592, z: 29.156}
 --- !u!1 &6929684608256255615
 GameObject:
   m_ObjectHideFlags: 0
@@ -459,3 +509,33 @@ Transform:
   m_Father: {fileID: 4823795467669243897}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8723989628780102554
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3200586555181638050}
+  m_Layer: 0
+  m_Name: LeftHandPistol
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3200586555181638050
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8723989628780102554}
+  m_LocalRotation: {x: -0.43568584, y: -0.44770694, z: -0.54458684, w: 0.5596084}
+  m_LocalPosition: {x: 16.8, y: -46.5, z: 8.2}
+  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 4823795467669243897}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: -77.228, y: -6.896, z: -82.93101}

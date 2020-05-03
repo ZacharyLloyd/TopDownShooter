@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1445936456936759569}
   - component: {fileID: 5272401319075328433}
   - component: {fileID: 5469742694952373440}
+  - component: {fileID: 748484672}
   m_Layer: 0
   m_Name: UMP-45
   m_TagString: Untagged
@@ -47,12 +48,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6866dd34696aba940abc4cbf7656a95c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponSprite: {fileID: 0}
   gunSlot: {fileID: 0}
   desiredLeftHand: {fileID: 0}
   desiredRightHand: {fileID: 0}
-  pointOfFire: {fileID: 0}
-  rateOfFire: 0
+  pointOfFire: {fileID: 4581129345205677503}
   bulletTravelSpeed: 0
+  damage: 0
+  bulletPrefab: {fileID: 0}
+  ammoToAdd: 0
   currentWeaponType: 2
 --- !u!65 &5469742694952373440
 BoxCollider:
@@ -62,11 +66,25 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1445936456937192753}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1.4510686, z: 2.755002}
   m_Center: {x: 0, y: 0.22553419, z: 0.06838113}
+--- !u!114 &748484672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1445936456937192753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15e0ef040c95c1a4a9018b0d2e93c4d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 0
+  weapon: {fileID: 5272401319075328433}
 --- !u!1 &1445936456937192755
 GameObject:
   m_ObjectHideFlags: 0

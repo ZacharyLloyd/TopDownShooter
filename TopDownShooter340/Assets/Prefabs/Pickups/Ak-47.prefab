@@ -167,6 +167,7 @@ GameObject:
   - component: {fileID: 2802913778840243789}
   - component: {fileID: 3540033905369499495}
   - component: {fileID: 488478092828975942}
+  - component: {fileID: 844227161}
   m_Layer: 0
   m_Name: Ak-47
   m_TagString: Untagged
@@ -204,12 +205,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a620c114ea83df4892153a89e99e44a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponSprite: {fileID: 0}
   gunSlot: {fileID: 0}
   desiredLeftHand: {fileID: 0}
   desiredRightHand: {fileID: 0}
-  pointOfFire: {fileID: 0}
-  rateOfFire: 0
+  pointOfFire: {fileID: 51920288463871327}
   bulletTravelSpeed: 0
+  damage: 0
+  bulletPrefab: {fileID: 0}
+  ammoToAdd: 0
   currentWeaponType: 3
 --- !u!65 &488478092828975942
 BoxCollider:
@@ -219,11 +223,25 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2802913778840474221}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 2.6208956}
   m_Center: {x: 0, y: 0, z: 0.08137599}
+--- !u!114 &844227161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2802913778840474221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15e0ef040c95c1a4a9018b0d2e93c4d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 0
+  weapon: {fileID: 3540033905369499495}
 --- !u!1 &2802913778840474223
 GameObject:
   m_ObjectHideFlags: 0

@@ -25,14 +25,17 @@ public class Stats : MonoBehaviour
     [Header("Pistol")]
     public int pistolAmmoMax;
     public int pistolAmmoCurrent;
+    public Transform pistolSpawnPoint;
 
     [Header("SMG")]
     public int smgAmmoMax;
     public int smgAmmoCurrent;
+    public Transform smgSpawnPoint;
 
     [Header("Rifle")]
     public int rifleAmmoMax;
     public int rifleAmmoCurrent;
+    public Transform rifleSpawnPoint;
 
     private void Awake()
     {

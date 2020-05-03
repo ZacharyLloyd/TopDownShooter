@@ -64,11 +64,33 @@ public class Pawn : MonoBehaviour
             {
                 UnepuipWeapon(stats.weaponEquipped);
             }
-            stats.weaponEquipped = Instantiate(weapon);
+            stats.weaponEquipped = weapon;
+            stats.weaponEquipped.gameObject.SetActive(true);
 
-            stats.weaponEquipped.transform.SetParent(gunSlot);
-            stats.weaponEquipped.transform.localPosition = weapon.transform.localPosition;
-            stats.weaponEquipped.transform.localRotation = weapon.transform.localRotation;
+            switch (weapon.currentWeaponType)
+            {
+                case Weapon.weaponType.none:
+                    break;
+                case Weapon.weaponType.pistol:
+                    transform.SetParent(stats.pistolSpawnPoint);
+                    stats.weaponEquipped.transform.localPosition = stats.pistolSpawnPoint.transform.localPosition;
+                    //stats.weaponEquipped.transform.rotation = stats.pistolSpawnPoint.transform.rotation;
+                    break;
+                case Weapon.weaponType.smg:
+                    transform.SetParent(stats.smgSpawnPoint);
+                    stats.weaponEquipped.transform.localPosition = stats.smgSpawnPoint.transform.localPosition;
+                    stats.weaponEquipped.transform.localRotation = stats.smgSpawnPoint.transform.localRotation;
+                    break;
+                case Weapon.weaponType.rifle:
+                    transform.SetParent(stats.rifleSpawnPoint);
+                    stats.weaponEquipped.transform.localPosition = stats.rifleSpawnPoint.transform.localPosition;
+                    stats.weaponEquipped.transform.localRotation = stats.rifleSpawnPoint.transform.localRotation;
+                    break;
+                default:
+                    break;
+            }
+            //stats.weaponEquipped.transform.localPosition = weapon.transform.localPosition;
+            //stats.weaponEquipped.transform.localRotation = weapon.transform.localRotation;
             stats.weaponEquipped.currentWeaponType = weapon.currentWeaponType;
             SetAnimationLayer();
 
@@ -83,7 +105,7 @@ public class Pawn : MonoBehaviour
      since there is no longer a weapon equiped*/
     public virtual void UnepuipWeapon(Weapon weapon)
     {
-        Destroy(weapon.gameObject);
+        weapon.gameObject.SetActive(false);
         stats.weaponEquipped = null;
     }
     //Handle inventory changes

@@ -7,7 +7,6 @@ public class Bullet : MonoBehaviour
     public Weapon weaponThatShot;
 
     protected Rigidbody rb;
-
     protected Transform tf;
 
     // Start is called before the first frame update
@@ -15,6 +14,7 @@ public class Bullet : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         tf = GetComponent<Transform>();
+        MoveBullet();
     }
 
     // Update is called once per frame
@@ -24,15 +24,16 @@ public class Bullet : MonoBehaviour
     }
     void MoveBullet()
     {
-        rb.AddRelativeForce(Vector3.forward * weaponThatShot.bulletTravelSpeed, ForceMode.VelocityChange);
+        rb.AddRelativeForce(weaponThatShot.pointOfFire.transform.forward * weaponThatShot.bulletTravelSpeed, ForceMode.VelocityChange);
     }
 
     /// <summary>
     /// destroy the projectile's gameobject, so it doesn't exist longer than it needs to on collision
     /// </summary>
     /// <param name="other"></param>
-    protected virtual void OnTriggerEnter(Collider other)
+    protected void OnTriggerEnter(Collider other)
     {
+        Debug.Log(other.name);
         Destroy(gameObject);
     }
 }

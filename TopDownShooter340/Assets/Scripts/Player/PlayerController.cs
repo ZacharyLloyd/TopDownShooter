@@ -15,15 +15,14 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Pass input to the pawn
-        pawn.CheckCrouch(new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")));
-
-        pawn.Move(new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")));
-
-        if (Input.GetButton("Fire1"))
-        {
-            pawn.stats.weaponEquipped.Shoot(pawn.stats);
-        }
+        HandleCrouch();
+        HandleMovement();
+        HandleShooting();
+        HandleInventory();
+    }
+    //Check to see if input for crouching was pressed
+    void HandleCrouch()
+    {
         if (Input.GetButtonDown("Crouch"))
         {
             switch (pawn.isCrouching)
@@ -39,7 +38,37 @@ public class PlayerController : MonoBehaviour
             }
             Debug.Log(pawn.isCrouching);
         }
-
-        
+    }
+    //Check to see if input for movement was pressed
+    void HandleMovement()
+    {
+        pawn.Move(new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")));
+    }
+    //Check to see if input for shooting was pressed
+    void HandleShooting()
+    {
+        if (Input.GetButton("Fire1"))
+        {
+            pawn.stats.weaponEquipped.Shoot(pawn.stats);
+        }
+    }
+    //Check to see if input for inventory was pressed
+    void HandleInventory()
+    {
+        if (Input.GetButtonDown("WeaponSlot1"))
+        {
+            pawn.EquipWeapon(pawn.stats.inventory[0]);
+            pawn.animator.SetInteger("Weapon", 1);
+        }
+        if (Input.GetButtonDown("WeaponSlot2"))
+        {
+            pawn.EquipWeapon(pawn.stats.inventory[1]);
+            pawn.animator.SetInteger("Weapon", 0);
+        }
+        if (Input.GetButtonDown("WeaponSlot3"))
+        {
+            pawn.EquipWeapon(pawn.stats.inventory[2]);
+            pawn.animator.SetInteger("Weapon", 0);
+        }
     }
 }

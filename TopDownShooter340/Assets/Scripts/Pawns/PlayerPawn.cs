@@ -6,20 +6,6 @@ using UnityEngine;
 public class PlayerPawn : Pawn
 {
 
-    // USE FOR DEBUG ONLY
-    //Move this to PlayerController
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            animator.SetInteger("Weapon", 0); 
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            animator.SetInteger("Weapon", 1);
-        }
-    }
-
     public override void Move(Vector2 direction)
     {
         base.Move(direction);
