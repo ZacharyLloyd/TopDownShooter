@@ -51,7 +51,8 @@ public class Weapon : MonoBehaviour
     }
     public virtual void Shoot(Stats stats)
     {
-        Bullet bullet = Instantiate(bulletPrefab, pointOfFire.transform.position, Quaternion.identity);
+        Bullet bullet = Instantiate(bulletPrefab, pointOfFire.position, Quaternion.identity);
+     
         Debug.Log("bullet shot");
         bullet.weaponThatShot = this;
     }

@@ -6,12 +6,12 @@ using TMPro;
 
 public class Stats : MonoBehaviour
 {
-    public PlayerPawn pawn;
+    public Pawn pawn;
 
     [Header("Health")]
     [SerializeField, Range(0f, 100f), Tooltip("Current health")] public float currentHealth;
-    [SerializeField, Range(0f, 100f), Tooltip("Current max health")] private float maxHealth;
-    public Image healthFill;
+    [SerializeField, Range(0f, 100f), Tooltip("Current max health")] private float maxHealth = 100f;
+    public Slider healthFill;
 
     [Header("AmmoDisplay")]
     public TextMeshProUGUI currentAmmoText;
@@ -39,16 +39,13 @@ public class Stats : MonoBehaviour
 
     private void Awake()
     {
-        pawn = GetComponent<PlayerPawn>();
+        pawn = GetComponentInChildren<Pawn>();
         currentHealth = maxHealth;
         pistolAmmoCurrent = pistolAmmoMax;
         smgAmmoCurrent = smgAmmoMax;
         rifleAmmoCurrent = rifleAmmoMax;
         inventory[0] = startingWeapon;
     }
-
-
-
     /// <summary>
     /// Reduce health or shield by damageToTake parameter
     /// If our health is less than or equal to 0 then kill the pawn
@@ -58,19 +55,19 @@ public class Stats : MonoBehaviour
     {
         currentHealth -= damageToTake;
         HealthUIUpdate();
-        if(currentHealth == 0)
+        if (currentHealth == 0)
         {
             pawn.isDead = true;
-            Destroy(this);
+            Destroy(gameObject);
         }
     }
     //Filling the health ui to match the players health
     void HealthUIUpdate()
     {
-        if(healthFill != null)
+        if (healthFill != null)
         {
             //fill amount is equal to current health
-            healthFill.fillAmount = currentHealth / maxHealth;
+            healthFill.value = currentHealth / maxHealth;
         }
     }
     /// <summary>
@@ -78,22 +75,22 @@ public class Stats : MonoBehaviour
     /// </summary>
     void AmmoUIUpdate()
     {
-        if(currentAmmoText != null && maxAmmoText != null)
+        if (currentAmmoText != null && maxAmmoText != null)
         {
             //figure out what weapon is equipped and display text based off that
-            if(weaponEquipped.currentWeaponType == Weapon.weaponType.pistol)
+            if (weaponEquipped.currentWeaponType == Weapon.weaponType.pistol)
             {
                 //currentammotext being switched to pistol ammo count
                 currentAmmoText.text = pistolAmmoCurrent.ToString();
                 maxAmmoText.text = pistolAmmoMax.ToString();
             }
-            if(weaponEquipped.currentWeaponType == Weapon.weaponType.smg)
+            if (weaponEquipped.currentWeaponType == Weapon.weaponType.smg)
             {
                 //currentammotext being switched to smg ammo count
                 currentAmmoText.text = smgAmmoCurrent.ToString();
                 maxAmmoText.text = smgAmmoMax.ToString();
             }
-            if(weaponEquipped.currentWeaponType == Weapon.weaponType.rifle)
+            if (weaponEquipped.currentWeaponType == Weapon.weaponType.rifle)
             {
                 //currentammotext being switched to rifle ammo count
                 currentAmmoText.text = rifleAmmoCurrent.ToString();
@@ -112,35 +109,35 @@ public class Stats : MonoBehaviour
     /// </summary>
     public void inventoryUIUpdate()
     {
-        //HUD is what is used to display weapons in inventory
-        HUD display = GameManager.instance.headsUpDisplay;
-        int j = 1;
-        //Cycle through inventory and display ui accordingly
-        for (int i = 0; i < inventory.Length; i++)
-        {
-            if (inventory[i] != null)
-            {
-                if (weaponEquipped != null)
-                {
-                    if (weaponEquipped.GetType() == inventory[i].GetType())
-                    {
-                        display.weaponSlots[0].slotImage.sprite = weaponEquipped.weaponSprite;
-                        display.weaponSlots[0].keybindNumber.text = (i + 1).ToString();
-                        display.weaponSlots[0].gameObject.SetActive(true);
-                    }
-                    else
-                    {
-                        display.weaponSlots[j].slotImage.sprite = inventory[i].weaponSprite;
-                        display.weaponSlots[j].keybindNumber.text = (i + 1).ToString();
-                        display.weaponSlots[j].gameObject.SetActive(true);
-                        j++;
-                    }
-                }
-            }
-            else
-            {
-                display.weaponSlots[i].gameObject.SetActive(false);
-            }
-        }
+        ////HUD is what is used to display weapons in inventory
+        //HUD display = GameManager.instance.headsUpDisplay;
+        //int j = 1;
+        ////Cycle through inventory and display ui accordingly
+        //for (int i = 0; i < inventory.Length; i++)
+        //{
+        //    if (inventory[i] != null)
+        //    {
+        //        if (weaponEquipped != null)
+        //        {
+        //            if (weaponEquipped.GetType() == inventory[i].GetType())
+        //            {
+        //                display.weaponSlots[0].slotImage.sprite = weaponEquipped.weaponSprite;
+        //                display.weaponSlots[0].keybindNumber.text = (i + 1).ToString();
+        //                display.weaponSlots[0].gameObject.SetActive(true);
+        //            }
+        //            else
+        //            {
+        //                display.weaponSlots[j].slotImage.sprite = inventory[i].weaponSprite;
+        //                display.weaponSlots[j].keybindNumber.text = (i + 1).ToString();
+        //                display.weaponSlots[j].gameObject.SetActive(true);
+        //                j++;
+        //            }
+        //        }
+        //    }
+        //    else
+        //    {
+        //        display.weaponSlots[i].gameObject.SetActive(false);
+        //    }
+        //}
     }
 }

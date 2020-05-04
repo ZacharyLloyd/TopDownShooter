@@ -5,7 +5,10 @@ using UnityEngine;
 //Rework this into pawn then come back here and fill it out
 public class PlayerPawn : Pawn
 {
-
+    protected override void Start()
+    {
+        base.Start();
+    }
     public override void Move(Vector2 direction)
     {
         base.Move(direction);

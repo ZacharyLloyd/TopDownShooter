@@ -31,9 +31,13 @@ public class Bullet : MonoBehaviour
     /// destroy the projectile's gameobject, so it doesn't exist longer than it needs to on collision
     /// </summary>
     /// <param name="other"></param>
-    protected void OnTriggerEnter(Collider other)
+    protected void OnTriggerStay(Collider other)
     {
-        Debug.Log(other.name);
-        Destroy(gameObject);
+        if (other.gameObject.GetComponent<Pawn>() != null)
+        {
+            other.GetComponentInParent<Stats>().TakeDamage(weaponThatShot.damage);
+            Debug.Log(other.name);
+            Destroy(gameObject); 
+        }
     }
 }

@@ -10,7 +10,7 @@ public class WeaponPickup : Pickup
     {
         Stats targetStats = target.GetComponentInParent<Stats>();
         AddToInventory(targetStats);
-        transform.SetParent(target.transform);
+        //transform.SetParent(target.transform);
         switch (weapon.currentWeaponType)
         {
             case Weapon.weaponType.none:

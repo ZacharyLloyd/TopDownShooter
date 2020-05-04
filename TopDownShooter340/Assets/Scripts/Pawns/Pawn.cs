@@ -12,16 +12,21 @@ public class Pawn : MonoBehaviour
     public float speed;
     [SerializeField] public bool isCrouching;
 
-    [Header("Transform Postions")]
-    public Transform gunSlot; //position where gun will be
-    public Transform leftHand; //left hand position
-    public Transform rightHand; //right hand position
+    //[Header("Transform Postions")]
+    //public Transform leftHand; //left hand position
+    //public Transform rightHand; //right hand position
+
+    //Const for zero position
+    public Vector3 ZERO_POSITION = new Vector3(0f, 0f, 0f);
+
+    //Const for zero rotation
+    public Quaternion ZERO_ROTATION = new Quaternion(0f, 0f, 0f, 0f);
 
     [Header("Bools")]
     public bool isDead;
 
     // Start is called before the first frame update
-    protected void Start()
+    protected  virtual void Start()
     {
         //Get animator
         animator = GetComponent<Animator>();
@@ -66,25 +71,22 @@ public class Pawn : MonoBehaviour
             }
             stats.weaponEquipped = weapon;
             stats.weaponEquipped.gameObject.SetActive(true);
-
             switch (weapon.currentWeaponType)
             {
                 case Weapon.weaponType.none:
                     break;
                 case Weapon.weaponType.pistol:
-                    transform.SetParent(stats.pistolSpawnPoint);
-                    stats.weaponEquipped.transform.localPosition = stats.pistolSpawnPoint.transform.localPosition;
-                    //stats.weaponEquipped.transform.rotation = stats.pistolSpawnPoint.transform.rotation;
+                    
+                    stats.weaponEquipped.transform.SetParent(stats.pistolSpawnPoint);
+                    ZeroOutLocalTransforms(stats.weaponEquipped.transform);
                     break;
                 case Weapon.weaponType.smg:
-                    transform.SetParent(stats.smgSpawnPoint);
-                    stats.weaponEquipped.transform.localPosition = stats.smgSpawnPoint.transform.localPosition;
-                    stats.weaponEquipped.transform.localRotation = stats.smgSpawnPoint.transform.localRotation;
+                    stats.weaponEquipped.transform.SetParent(stats.smgSpawnPoint);
+                    ZeroOutLocalTransforms(stats.weaponEquipped.transform);
                     break;
                 case Weapon.weaponType.rifle:
-                    transform.SetParent(stats.rifleSpawnPoint);
-                    stats.weaponEquipped.transform.localPosition = stats.rifleSpawnPoint.transform.localPosition;
-                    stats.weaponEquipped.transform.localRotation = stats.rifleSpawnPoint.transform.localRotation;
+                    stats.weaponEquipped.transform.SetParent(stats.rifleSpawnPoint);
+                    ZeroOutLocalTransforms(stats.weaponEquipped.transform);
                     break;
                 default:
                     break;
@@ -92,15 +94,25 @@ public class Pawn : MonoBehaviour
             //stats.weaponEquipped.transform.localPosition = weapon.transform.localPosition;
             //stats.weaponEquipped.transform.localRotation = weapon.transform.localRotation;
             stats.weaponEquipped.currentWeaponType = weapon.currentWeaponType;
-            SetAnimationLayer();
+            //SetAnimationLayer();
 
-            leftHand = stats.weaponEquipped.desiredLeftHand;
-            rightHand = stats.weaponEquipped.desiredRightHand;
+            
 
             stats.weaponEquipped.gameObject.layer = gameObject.layer;
             ManageInventory();
         }
     }  
+
+    /// <summary>
+    /// Zero out the local position, rotation, and scale of a particular transform
+    /// </summary>
+    /// <param name="_transform"></param>
+    void ZeroOutLocalTransforms(Transform _transform)
+    {
+        _transform.localPosition = ZERO_POSITION;
+        _transform.localRotation = ZERO_ROTATION;
+    }
+
     /*Unequip the weapon by destorying it and setting weaponEquipped to null
      since there is no longer a weapon equiped*/
     public virtual void UnepuipWeapon(Weapon weapon)
@@ -115,27 +127,39 @@ public class Pawn : MonoBehaviour
     //IK hands to appear in the right spot for the weapon
     public virtual void OnAnimatorIK(int layerIndex)
     {
-        if (rightHand == null)
+        if (stats == null || stats.weaponEquipped == null)
         {
+            return;
+        }
+
+        //If there's a spot for the model to place its right hand
+        if (stats.weaponEquipped.desiredRightHand == null)
+        {
+            
             animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 0.0f);
             animator.SetIKRotationWeight(AvatarIKGoal.RightHand, 0.0f);
         }
         else
         {
-            animator.SetIKPosition(AvatarIKGoal.RightHand, rightHand.position);
-            animator.SetIKRotation(AvatarIKGoal.RightHand, rightHand.rotation);
+            //Debug.Log("If you got this, you are amazing");
+            animator.SetIKPosition(AvatarIKGoal.RightHand, stats.weaponEquipped.desiredRightHand.position);
+            animator.SetIKRotation(AvatarIKGoal.RightHand, stats.weaponEquipped.desiredRightHand.rotation);
             animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 1.0f);
             animator.SetIKRotationWeight(AvatarIKGoal.RightHand, 1.0f);
         }
-        if (leftHand == null)
+
+        //If there's a spot for the model to place its left hand
+        if (stats.weaponEquipped.desiredLeftHand == null)
         {
+            
             animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 0.0f);
             animator.SetIKRotationWeight(AvatarIKGoal.LeftHand, 0.0f);
         }
         else
         {
-            animator.SetIKPosition(AvatarIKGoal.LeftHand, leftHand.position);
-            animator.SetIKRotation(AvatarIKGoal.LeftHand, leftHand.rotation);
+            //Debug.Log("If you got this, you are amazing");
+            animator.SetIKPosition(AvatarIKGoal.LeftHand, stats.weaponEquipped.desiredLeftHand.position);
+            animator.SetIKRotation(AvatarIKGoal.LeftHand, stats.weaponEquipped.desiredLeftHand.rotation);
             animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1.0f);
             animator.SetIKRotationWeight(AvatarIKGoal.LeftHand, 1.0f);
         }
