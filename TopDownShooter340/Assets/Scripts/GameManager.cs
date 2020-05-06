@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    [SerializeField] private List<GameObject> spawnedPlayers;
+    [SerializeField] private List<Pawn> spawnedPlayers;
 
     public HUD headsUpDisplay;
 
@@ -29,9 +29,12 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        var pawnsInGame = FindObjectsOfType<Pawn>();
+        foreach (Pawn pawn in pawnsInGame)
+        {
+            spawnedPlayers.Add(pawn);
+        }
     }
-
     // Update is called once per frame
     void Update()
     {

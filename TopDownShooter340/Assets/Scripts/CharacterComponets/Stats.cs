@@ -7,6 +7,8 @@ using TMPro;
 public class Stats : MonoBehaviour
 {
     public Pawn pawn;
+    [SerializeField]
+    private SpawnPoint spawner;
 
     [Header("Health")]
     [SerializeField, Range(0f, 100f), Tooltip("Current health")] public float currentHealth;
@@ -45,6 +47,7 @@ public class Stats : MonoBehaviour
         smgAmmoCurrent = smgAmmoMax;
         rifleAmmoCurrent = rifleAmmoMax;
         inventory[0] = startingWeapon;
+        spawner = FindObjectOfType<SpawnPoint>();
     }
     /// <summary>
     /// Reduce health or shield by damageToTake parameter

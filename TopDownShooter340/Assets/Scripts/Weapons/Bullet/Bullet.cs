@@ -6,8 +6,15 @@ public class Bullet : MonoBehaviour
 {
     public Weapon weaponThatShot;
 
-    protected Rigidbody rb;
-    protected Transform tf;
+    [SerializeField]
+    private Rigidbody rb;
+    [SerializeField]
+    private Transform tf;
+    [SerializeField]
+    private float bulletTravelTime;
+    [SerializeField]
+    private float maxBulletTravelTime;
+
 
     // Start is called before the first frame update
     void Start()
@@ -20,7 +27,11 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        bulletTravelTime += Time.deltaTime;
+        if(bulletTravelTime > maxBulletTravelTime)
+        {
+            Destroy(gameObject);
+        }
     }
     void MoveBullet()
     {

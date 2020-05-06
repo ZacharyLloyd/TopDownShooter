@@ -52,7 +52,8 @@ public class Weapon : MonoBehaviour
     public virtual void Shoot(Stats stats)
     {
         Bullet bullet = Instantiate(bulletPrefab, pointOfFire.position, Quaternion.identity);
-     
+        //Rotate the bullet since when it instantiates it does not fire straight
+        bullet.gameObject.transform.rotation = Quaternion.Euler(90f, 0f, 55f);
         Debug.Log("bullet shot");
         bullet.weaponThatShot = this;
     }

@@ -48,6 +48,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponThatShot: {fileID: 0}
+  rb: {fileID: 0}
+  tf: {fileID: 0}
+  bulletTravelTime: 0
+  maxBulletTravelTime: 3
 --- !u!54 &-1508808489156530858
 Rigidbody:
   m_ObjectHideFlags: 0

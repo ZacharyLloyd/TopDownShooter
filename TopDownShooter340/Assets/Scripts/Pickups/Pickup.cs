@@ -11,6 +11,10 @@ public class Pickup : MonoBehaviour
     [Tooltip("Rate at which the object spins")]
     private int rotationSpeed;
 
+    [Header("Flag for pickup")]
+    [SerializeField]
+    protected bool isPickedUp;
+
     protected void Start()
     {
         tf = GetComponent<Transform>();

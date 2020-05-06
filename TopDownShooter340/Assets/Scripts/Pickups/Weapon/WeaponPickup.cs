@@ -8,27 +8,31 @@ public class WeaponPickup : Pickup
 
     protected override void OnPickup(GameObject target)
     {
-        Stats targetStats = target.GetComponentInParent<Stats>();
-        AddToInventory(targetStats);
-        //transform.SetParent(target.transform);
-        switch (weapon.currentWeaponType)
+        if (isPickedUp == false)
         {
-            case Weapon.weaponType.none:
-                break;
-            case Weapon.weaponType.pistol:
-                transform.SetParent(targetStats.pistolSpawnPoint);
-                break;
-            case Weapon.weaponType.smg:
-                transform.SetParent(targetStats.smgSpawnPoint);
-                break;
-            case Weapon.weaponType.rifle:
-                transform.SetParent(targetStats.rifleSpawnPoint);
-                break;
-            default:
-                break;
+            Stats targetStats = target.GetComponentInParent<Stats>();
+            AddToInventory(targetStats);
+            //transform.SetParent(target.transform);
+            switch (weapon.currentWeaponType)
+            {
+                case Weapon.weaponType.none:
+                    break;
+                case Weapon.weaponType.pistol:
+                    transform.SetParent(targetStats.pistolSpawnPoint);
+                    break;
+                case Weapon.weaponType.smg:
+                    transform.SetParent(targetStats.smgSpawnPoint);
+                    break;
+                case Weapon.weaponType.rifle:
+                    transform.SetParent(targetStats.rifleSpawnPoint);
+                    break;
+                default:
+                    break;
+            }
+            isPickedUp = true;
+            gameObject.SetActive(false);
+            base.OnPickup(target); 
         }
-        gameObject.SetActive(false);
-        base.OnPickup(target);
     }
 
     /// <summary>

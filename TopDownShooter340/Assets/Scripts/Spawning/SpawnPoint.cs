@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class SpawnPoint : MonoBehaviour
 {
-    public Stats pawn;
-    public List<GameObject> actorsToSpawn;
+    public Stats stats;
+    public List<Pawn> actorsSpawned;
     public float spawnRate;
     public Transform startPoint;
     public Transform locationToSpawn;
@@ -35,23 +35,28 @@ public class SpawnPoint : MonoBehaviour
 
     private void Update()
     {
-        time += Time.deltaTime;
-        if (time >= spawnRate)
-            Debug.Log("HI FLAGGSSS!");
-
+        if (!spawningFull)
+        {
+            time += Time.deltaTime;
+        }
     }
 
-    bool CheckIfMax(out bool _maxVar)
+    bool CheckIfMax()
     {
-        Debug.Log(actorsToSpawn.Count);
-        _maxVar = (actorsToSpawn.Count >= spawnMax);
-        ManageList();
-        return _maxVar;
+        if (actorsSpawned != null)
+        {
+            bool max;
+            //Debug.Log(actorsToSpawn.Count);
+            max = (actorsSpawned.Count >= spawnMax);
+            ManageList();
+            return max;
+        }
+        return false;
     }
     public void SpawnObjects()
     {
-        GameObject newPawn = Instantiate(pawn.gameObject, locationToSpawn);
-        actorsToSpawn.Add(newPawn);
+        Pawn newPawn = Instantiate(stats.gameObject, locationToSpawn).GetComponentInChildren<Pawn>();
+        actorsSpawned.Add(newPawn);
     }
 
     /// <summary>
@@ -59,20 +64,28 @@ public class SpawnPoint : MonoBehaviour
     /// </summary>
     public void ManageList()
     {
-        if(actorsToSpawn.Count != 0)
+        if (actorsSpawned.Count != 0)
         {
-            //We want to find all objects that are null, and remove them;
-            List<GameObject> objectsToRemove = new List<GameObject>();
-
-            //First, analyze the list of actors, and add it to what needs to be cleared out
-            foreach(GameObject obj in actorsToSpawn)
+            //Exception handling to ignore null object enumeration
+            try
             {
-                if (obj == null)
+                //First, analyze the list of actors, and add it to what needs to be cleared out
+                foreach (Pawn obj in actorsSpawned)
                 {
-                    actorsToSpawn.Remove(obj);
-                    Debug.Log("A null object has been found...");
+                    if (obj == null)
+                    {
+                        actorsSpawned.Remove(obj);
+                        Debug.Log("A null object has been found...");
+                    }
                 }
             }
+            catch {/*Do nothing*/}
+
+            if (actorsSpawned.Count != spawnMax)
+            {
+                spawningFull = false;
+            }
+
         }
     }
 
@@ -80,13 +93,12 @@ public class SpawnPoint : MonoBehaviour
     {
         while (true)
         {
-            if (!CheckIfMax(out spawningFull) && time >= spawnRate)
+            spawningFull = CheckIfMax();
+            if (!spawningFull && time >= spawnRate)
             {
                 SpawnObjects();
                 time = RESET;
             }
-
-
             yield return null;
         }
     }
