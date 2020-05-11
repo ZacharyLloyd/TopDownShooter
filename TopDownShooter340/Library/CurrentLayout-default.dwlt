@@ -73,7 +73,7 @@ MonoBehaviour:
   m_MinSize: {x: 883, y: 494}
   m_MaxSize: {x: 16008, y: 14044}
   vertical: 0
-  controlID: 90
+  controlID: 112
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -244,7 +244,7 @@ MonoBehaviour:
   m_MinSize: {x: 606, y: 494}
   m_MaxSize: {x: 12006, y: 14044}
   vertical: 1
-  controlID: 91
+  controlID: 113
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -270,7 +270,7 @@ MonoBehaviour:
   m_MinSize: {x: 606, y: 222}
   m_MaxSize: {x: 12006, y: 4022}
   vertical: 0
-  controlID: 92
+  controlID: 68
 --- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -462,19 +462,19 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts/Weapons
+    - Assets/Scripts/Enemy
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Scripts/Weapons
+  - Assets/Scripts/Enemy
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\ztllo\OneDrive\Documents\GitHub\GPE340\TopDownShooter\TopDownShooter340
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 46}
-    m_SelectedIDs: 94320000
-    m_LastClickedID: 12948
+    m_SelectedIDs: 422d0000
+    m_LastClickedID: 11586
     m_ExpandedIDs: 00000000cc2c00001c2d0000162f0000be2f000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -624,7 +624,7 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 2e280000
+      m_SelectedIDs: 982b0000
       m_LastClickedID: 0
       m_ExpandedIDs: 78fbffff
       m_RenameOverlay:
@@ -719,11 +719,11 @@ MonoBehaviour:
   m_Rotation:
     m_Target: {x: 0.05966412, y: 0.88857186, z: -0.12098701, w: 0.4385115}
     speed: 2
-    m_Value: {x: 0.06032026, y: 0.8883672, z: -0.122316696, w: 0.43841055}
+    m_Value: {x: 0.059662633, y: 0.88854975, z: -0.120983995, w: 0.43850055}
   m_Size:
     m_Target: 9.0167055
     speed: 2
-    m_Value: 9.441576
+    m_Value: 9.0167055
   m_Ortho:
     m_Target: 0
     speed: 2
