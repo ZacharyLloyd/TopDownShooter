@@ -30,7 +30,6 @@ public class Pickup : MonoBehaviour
     {
         if (other.GetComponentInParent<Stats>() != null)
         {
-            Debug.Log(other.name);
             OnPickup(other.gameObject);
         }
     }

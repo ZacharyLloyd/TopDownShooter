@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.AI;
 
 public class EnemyPawn : Pawn
 {
@@ -23,16 +24,16 @@ public class EnemyPawn : Pawn
     [SerializeField]
     private float shootingDistance;
 
-    public AIMoveState currentMoveState { get; set; }
-    public AIShootState currentShootState { get; set; }
-    public EnemyController enemyController { get; set; }
+    public AIMoveState currentMoveState; //{ get; set; }
+    public AIShootState currentShootState; //{ get; set; }
+    public EnemyController enemyController; //{ get; set; }
 
-    public bool isShooting { get; set; }
-    public bool isChasing { get; set; }
-    public bool isEvading { get; set; }
+    public bool isShooting; //{ get; set; }
+    public bool isChasing; //{ get; set; }
+    public bool isEvading; //{ get; set; }
 
     IEnumerator manageStates;
-    protected override void Start()
+    protected override void Awake()
     {
         foreach (Weapon weapon in stats.inventory)
         {
@@ -44,14 +45,20 @@ public class EnemyPawn : Pawn
         //Get animator
         animator = GetComponent<Animator>();
         stats = GetComponentInParent<Stats>();
-        enemyController = GetComponent<EnemyController>();
+        enemyController = GetComponentInParent<EnemyController>();
         manageStates = ManageAIStates();
         StartCoroutine(manageStates);
 
+        base.Awake();
     }
     // Update is called once per frame
     void Update()
     {
+        //Debug.Log(Vector3.Distance(enemyController.pawn.transform.position, enemyController.target.position));
+
+        if (agent.desiredVelocity.magnitude >= agent.speed)
+            agent.speed = 3f * Mathf.Sign(agent.desiredVelocity.magnitude);
+
         //stats.weaponEquipped.Shoot(stats);
     }
     public void ChangeMoveStateTo(AIMoveState aiMoveStateToChange)
@@ -73,8 +80,8 @@ public class EnemyPawn : Pawn
             default:
                 break;
         }
-        //UpdateAnimatorValues<bool>("isChasing", isChasing);
-        //UpdateAnimatorValues<bool>("isEvading", isEvading);
+        UpdateAnimatorValues<bool>("isChasing", isChasing);
+        UpdateAnimatorValues<bool>("isEvading", isEvading);
         return;
     }
     public void ChangeShootStateTo(AIShootState aiShootStateToChange)
@@ -91,7 +98,7 @@ public class EnemyPawn : Pawn
             default:
                 break;
         }
-        //UpdateAnimatorValues<bool>("isShooting", isShooting);
+        UpdateAnimatorValues<bool>("isShooting", isShooting);
         return;
     }
     void UpdateAnimatorValues<T>(string param, object paramValue)
@@ -112,7 +119,7 @@ public class EnemyPawn : Pawn
     {
         while (true)
         {
-            if (!enemyController.pawn.isDead)
+            if (enemyController.pawn != null && !enemyController.pawn.isDead)
             {
                 if (enemyController.pawn.stats.weaponEquipped != null)
                 {
@@ -124,7 +131,7 @@ public class EnemyPawn : Pawn
                         {
                             case AIMoveState.Idle:
                                 //Does nothing
-                                enemyController.agent.speed = 0f;
+                                agent.speed = 0f;
 
                                 //Check if player is in distance
                                 if (Vector3.Distance(enemyController.pawn.transform.position, target.position) < chaseDistance &&
@@ -136,33 +143,34 @@ public class EnemyPawn : Pawn
                                 break;
                             case AIMoveState.Chase:
                                 //Chase the target
-                                enemyController.agent.SetDestination(target.position);
-                                enemyController.agent.speed = 10f;
+                                agent.SetDestination(target.position);
+                                agent.speed = 3f;
                                 //Check if in range to shoot
                                 if (Vector3.Distance(enemyController.pawn.transform.position, target.position) < chaseDistance)
                                     ChangeShootStateTo(AIShootState.Shoot);
                                 else
                                     ChangeShootStateTo(AIShootState.None);
                                 //Check health to see if we need to flee
-                                if (enemyController.pawn.stats.currentHealth < 26)
+                                if (enemyController.pawn.stats.currentHealth < 26f)
                                     ChangeMoveStateTo(AIMoveState.Flee);
                                 break;
                             case AIMoveState.Flee:
                                 //Same this as Chase but reversed
                                 enemyController.agent.SetDestination(target.position);
-                                enemyController.agent.speed = -10f;
+                                enemyController.agent.speed = -3f;
                                 //Check if in distance for shooting
                                 if (Vector3.Distance(enemyController.pawn.transform.position, target.position) < shootingDistance)
                                     ChangeShootStateTo(AIShootState.Shoot);
                                 else
                                     ChangeShootStateTo(AIShootState.None);
                                 //Are we close to death?
-                                if (enemyController.pawn.stats.currentHealth > 19)
+                                if (enemyController.pawn.stats.currentHealth > 19f)
                                     ChangeMoveStateTo(AIMoveState.Chase);
                                 break;
                             default:
                                 break;
                         }
+
                         switch (currentShootState)
                         {
                             case AIShootState.None:
@@ -176,8 +184,8 @@ public class EnemyPawn : Pawn
                                 break;
                         }
                     }
-                }
-                enemyController.agent.SetDestination(Vector3.zero);
+                } else
+                    agent.SetDestination(Vector3.zero);
                 //Item drop goes here
                 yield return false;
             }

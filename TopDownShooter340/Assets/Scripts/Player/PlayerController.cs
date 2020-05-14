@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetButton("Fire1"))
         {
-            pawn.stats.weaponEquipped.Shoot(pawn.stats);
+          pawn.stats.weaponEquipped.Shoot(pawn.stats);
         }
     }
     //Check to see if input for inventory was pressed

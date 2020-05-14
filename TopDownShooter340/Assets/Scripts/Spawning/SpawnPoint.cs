@@ -75,7 +75,7 @@ public class SpawnPoint : MonoBehaviour
                     if (obj == null)
                     {
                         actorsSpawned.Remove(obj);
-                        Debug.Log("A null object has been found...");
+                        //Debug.Log("A null object has been found...");
                     }
                 }
             }

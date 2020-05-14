@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
-public class Pawn : MonoBehaviour
+public abstract class Pawn : MonoBehaviour
 {
     [Header("Components Needed")]
     public Animator animator;
@@ -25,12 +26,17 @@ public class Pawn : MonoBehaviour
     [Header("Bools")]
     public bool isDead;
 
+    [Header("NavMesh Agent"), Tooltip("If the pawn uses Artificial Intelligence.")]
+    [SerializeField] protected NavMeshAgent agent;
+
+
     // Start is called before the first frame update
-    protected  virtual void Start()
+    protected  virtual void Awake()
     {
         //Get animator
         animator = GetComponent<Animator>();
         stats = GetComponentInParent<Stats>();
+        agent = GetComponent<NavMeshAgent>();
     }
 
     // Update is called once per frame

@@ -6,7 +6,8 @@ public class Weapon : MonoBehaviour
 {
     [Header("UI")]
     public Sprite weaponSprite;
- 
+
+    public Pawn owner;
 
     [Header("Transform Postions")]
     public Transform gunSlot; //position where gun will be
@@ -54,7 +55,6 @@ public class Weapon : MonoBehaviour
         Bullet bullet = Instantiate(bulletPrefab, pointOfFire.position, Quaternion.identity);
         //Rotate the bullet since when it instantiates it does not fire straight
         bullet.gameObject.transform.rotation = Quaternion.Euler(90f, 0f, 60f);
-        Debug.Log("bullet shot");
         bullet.weaponThatShot = this;
     }
     public virtual void AddAmmo(Stats stats)

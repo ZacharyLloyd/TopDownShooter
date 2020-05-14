@@ -44,10 +44,10 @@ public class Bullet : MonoBehaviour
     /// <param name="other"></param>
     protected void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.GetComponent<Pawn>() != null)
+        Debug.Log(weaponThatShot.owner.gameObject.tag);
+        if (other.gameObject.GetComponent<Pawn>() != null && other.gameObject.tag != weaponThatShot.owner.gameObject.tag)
         {
             other.GetComponentInParent<Stats>().TakeDamage(weaponThatShot.damage);
-            Debug.Log(other.name);
             Destroy(gameObject); 
         }
     }

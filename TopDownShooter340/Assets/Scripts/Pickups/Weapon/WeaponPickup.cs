@@ -11,6 +11,7 @@ public class WeaponPickup : Pickup
         if (isPickedUp == false)
         {
             Stats targetStats = target.GetComponentInParent<Stats>();
+            weapon.owner = targetStats.pawn;
             AddToInventory(targetStats);
             //transform.SetParent(target.transform);
             switch (weapon.currentWeaponType)

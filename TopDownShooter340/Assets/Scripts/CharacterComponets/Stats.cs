@@ -49,6 +49,16 @@ public class Stats : MonoBehaviour
         inventory[0] = startingWeapon;
         spawner = FindObjectOfType<SpawnPoint>();
     }
+    private void Start()
+    {
+        Debug.Log(pawn.stats != null ? "yes": "no");
+        if (pawn.stats.startingWeapon != null)
+        {
+            Debug.Log(startingWeapon);
+            pawn.EquipWeapon(startingWeapon);
+            startingWeapon.owner = this.pawn;
+        }
+    }
     /// <summary>
     /// Reduce health or shield by damageToTake parameter
     /// If our health is less than or equal to 0 then kill the pawn

@@ -5,9 +5,9 @@ using UnityEngine;
 //Rework this into pawn then come back here and fill it out
 public class PlayerPawn : Pawn
 {
-    protected override void Start()
+    protected override void Awake()
     {
-        base.Start();
+        base.Awake();
     }
     public override void Move(Vector2 direction)
     {
