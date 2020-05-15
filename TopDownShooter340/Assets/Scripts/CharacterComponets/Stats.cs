@@ -51,7 +51,6 @@ public class Stats : MonoBehaviour
     }
     private void Start()
     {
-        Debug.Log(pawn.stats != null ? "yes": "no");
         if (pawn.stats.startingWeapon != null)
         {
             Debug.Log(startingWeapon);
@@ -68,11 +67,6 @@ public class Stats : MonoBehaviour
     {
         currentHealth -= damageToTake;
         HealthUIUpdate();
-        if (currentHealth == 0)
-        {
-            pawn.isDead = true;
-            Destroy(gameObject);
-        }
     }
     //Filling the health ui to match the players health
     void HealthUIUpdate()

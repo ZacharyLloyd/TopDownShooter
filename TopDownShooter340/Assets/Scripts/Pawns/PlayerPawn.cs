@@ -5,9 +5,21 @@ using UnityEngine;
 //Rework this into pawn then come back here and fill it out
 public class PlayerPawn : Pawn
 {
+    public PlayerController controller;
     protected override void Awake()
     {
+        controller = GetComponentInParent<PlayerController>();
         base.Awake();
+    }
+
+    protected override void Start()
+    {
+        base.Start();
+    }
+
+    protected override void Update()
+    {
+        base.Update();
     }
     public override void Move(Vector2 direction)
     {
@@ -40,8 +52,26 @@ public class PlayerPawn : Pawn
         base.OnAnimatorIK(layerIndex);
     }
     //Set the animation layer to display the proper animation for holding the weapon
-    public  override void SetAnimationLayer()
+    public override void SetAnimationLayer()
     {
         base.SetAnimationLayer();
+    }
+    public override void EnableRagDoll()
+    {
+
+        try
+        {
+            if (stats.weaponEquipped != null)
+            {
+                stats.weaponEquipped.owner.UnepuipWeapon(stats.weaponEquipped);
+            }
+
+            animator.enabled = false;
+            controller.enabled = false;
+            GetComponent<Rigidbody>().isKinematic = true;
+            SetColliderEnablementOfChildrenRigidBodies(true);
+            isDead = true;
+        }
+        catch { }
     }
 }

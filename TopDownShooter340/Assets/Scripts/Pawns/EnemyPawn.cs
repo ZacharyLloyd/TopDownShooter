@@ -51,14 +51,21 @@ public class EnemyPawn : Pawn
 
         base.Awake();
     }
+
+    protected override void Start()
+    {
+        base.Start();
+    }
+
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
         //Debug.Log(Vector3.Distance(enemyController.pawn.transform.position, enemyController.target.position));
 
         if (agent.desiredVelocity.magnitude >= agent.speed)
             agent.speed = 3f * Mathf.Sign(agent.desiredVelocity.magnitude);
 
+        base.Update();
         //stats.weaponEquipped.Shoot(stats);
     }
     public void ChangeMoveStateTo(AIMoveState aiMoveStateToChange)
@@ -192,5 +199,22 @@ public class EnemyPawn : Pawn
             yield return new WaitForEndOfFrame();
         }
         
+    }
+    public override void EnableRagDoll()
+    {
+        try
+        {
+            if (stats.weaponEquipped != null)
+            {
+                stats.weaponEquipped.owner.UnepuipWeapon(stats.weaponEquipped);
+            }
+
+            animator.enabled = false;
+            enemyController.enabled = false;
+            GetComponent<Rigidbody>().isKinematic = true;
+            SetColliderEnablementOfChildrenRigidBodies(true);
+            isDead = true;
+        }
+        catch { }
     }
 }

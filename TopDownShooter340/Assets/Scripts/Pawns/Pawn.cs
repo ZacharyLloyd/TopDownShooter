@@ -5,6 +5,8 @@ using UnityEngine.AI;
 
 public abstract class Pawn : MonoBehaviour
 {
+    protected static Pawn Instance;
+
     [Header("Components Needed")]
     public Animator animator;
     [SerializeField] public Stats stats;
@@ -29,20 +31,39 @@ public abstract class Pawn : MonoBehaviour
     [Header("NavMesh Agent"), Tooltip("If the pawn uses Artificial Intelligence.")]
     [SerializeField] protected NavMeshAgent agent;
 
+    [Header("Time variables for death")]
+    public float time;
+    public float timeToDie;
+    public float reset;
 
     // Start is called before the first frame update
-    protected  virtual void Awake()
+    protected virtual void Awake()
     {
+        Instance = this;
+
         //Get animator
         animator = GetComponent<Animator>();
         stats = GetComponentInParent<Stats>();
         agent = GetComponent<NavMeshAgent>();
     }
 
-    // Update is called once per frame
-    void Update()
+    protected virtual void Start()
     {
-        
+        SetColliderEnablementOfChildrenRigidBodies(false);
+
+    }
+
+    // Update is called once per frame
+    protected virtual void Update()
+    {
+        if (isDead == true)
+        {
+            time += Time.deltaTime;
+            if (time >= timeToDie)
+            {
+                DestroySelf();
+            }
+        }
     }
     public virtual void Move(Vector2 direction)
     {
@@ -82,7 +103,7 @@ public abstract class Pawn : MonoBehaviour
                 case Weapon.weaponType.none:
                     break;
                 case Weapon.weaponType.pistol:
-                    
+
                     stats.weaponEquipped.transform.SetParent(stats.pistolSpawnPoint);
                     ZeroOutLocalTransforms(stats.weaponEquipped.transform);
                     break;
@@ -102,12 +123,12 @@ public abstract class Pawn : MonoBehaviour
             stats.weaponEquipped.currentWeaponType = weapon.currentWeaponType;
             //SetAnimationLayer();
 
-            
+
 
             stats.weaponEquipped.gameObject.layer = gameObject.layer;
             ManageInventory();
         }
-    }  
+    }
 
     /// <summary>
     /// Zero out the local position, rotation, and scale of a particular transform
@@ -141,7 +162,7 @@ public abstract class Pawn : MonoBehaviour
         //If there's a spot for the model to place its right hand
         if (stats.weaponEquipped.desiredRightHand == null)
         {
-            
+
             animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 0.0f);
             animator.SetIKRotationWeight(AvatarIKGoal.RightHand, 0.0f);
         }
@@ -157,7 +178,7 @@ public abstract class Pawn : MonoBehaviour
         //If there's a spot for the model to place its left hand
         if (stats.weaponEquipped.desiredLeftHand == null)
         {
-            
+
             animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 0.0f);
             animator.SetIKRotationWeight(AvatarIKGoal.LeftHand, 0.0f);
         }
@@ -174,5 +195,53 @@ public abstract class Pawn : MonoBehaviour
     public virtual void SetAnimationLayer()
     {
         animator.SetInteger("Weapon", (int)(stats.weaponEquipped.currentWeaponType));
+    }
+    public virtual void EnableRagDoll()
+    {
+    }
+    public virtual void DestroySelf()
+    {
+        if (isDead == true)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    protected Collider[] FindAllCollidersInChildren()
+    {
+        List<Collider> childrenColliders = new List<Collider>();
+        Transform[] childrenObject = GetComponentsInChildren<Transform>();
+
+        //The first object we grab will not be added to the list.
+        int count = 0;
+
+        foreach (Transform obj in childrenObject)
+        {
+            Collider childCollider = null;
+
+            if (obj.gameObject.GetComponent<Collider>() != null && count > 0)
+            {
+                childCollider = obj.gameObject.GetComponent<Collider>();
+                childrenColliders.Add(childCollider);
+            }
+
+            count++;
+        }
+
+        return childrenColliders.ToArray();
+    }
+
+    protected void SetColliderEnablementOfChildrenRigidBodies(bool _enable)
+    {
+        Collider[] childrenColliders = FindAllCollidersInChildren();
+
+        foreach (Collider collider in childrenColliders)
+        {
+            Rigidbody rb = collider.gameObject.GetComponent<Rigidbody>();
+               
+            collider.enabled = _enable;
+            rb.isKinematic = !_enable;
+
+        }
     }
 }

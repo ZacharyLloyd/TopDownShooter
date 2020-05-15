@@ -16,18 +16,22 @@ public class CameraController : MonoBehaviour
     private Vector3 offset;
     readonly private Space offsetPositionSpace = Space.Self;
     readonly private bool lookAt = true;
-
+    private Pawn pawn;
     // Start is called before the first frame update
     void Start()
     {
         theCamera = GetComponent<Camera>();
-        target = FindObjectOfType<PlayerPawn>().transform;
+        pawn = FindObjectOfType<PlayerPawn>();
+        target = pawn.transform;
     }
 
     // Update is called once per frame
     void Update()
     {
-        RotateToMousePosition();
+        if (pawn.isDead == false)
+        {
+            RotateToMousePosition(); 
+        }
     }
     private void FixedUpdate()
     {

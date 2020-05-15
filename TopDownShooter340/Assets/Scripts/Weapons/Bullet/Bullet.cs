@@ -35,6 +35,7 @@ public class Bullet : MonoBehaviour
     }
     void MoveBullet()
     {
+        //push the bullet forward
         rb.AddRelativeForce(weaponThatShot.pointOfFire.transform.forward * weaponThatShot.bulletTravelSpeed, ForceMode.VelocityChange);
     }
 
@@ -47,8 +48,17 @@ public class Bullet : MonoBehaviour
         Debug.Log(weaponThatShot.owner.gameObject.tag);
         if (other.gameObject.GetComponent<Pawn>() != null && other.gameObject.tag != weaponThatShot.owner.gameObject.tag)
         {
+            //take damage
             other.GetComponentInParent<Stats>().TakeDamage(weaponThatShot.damage);
-            Destroy(gameObject); 
+
+            //check health and is dead bool
+            if (other.GetComponentInParent<Stats>().currentHealth <= 0 && !other.GetComponent<Pawn>().isDead)
+            {
+                Debug.Log("it is working");
+                //enable ragdoll
+                other.GetComponent<Pawn>().EnableRagDoll();
+            }
+            Destroy(gameObject);
         }
     }
 }
