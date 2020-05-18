@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class InventorySlot : MonoBehaviour
 {
     public Image slotImage;
-    public TextMeshProUGUI keybindNumber;
+    public Weapon weapon;
+    public bool isEmpty;
+    public Text weaponType;
+    public Text ammo;
 }

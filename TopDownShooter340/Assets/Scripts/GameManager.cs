@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        headsUpDisplay = FindObjectOfType<HUD>();
         #endregion
     }
     // Start is called before the first frame update
@@ -35,11 +36,4 @@ public class GameManager : MonoBehaviour
             spawnedPlayers.Add(pawn);
         }
     }
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-
 }

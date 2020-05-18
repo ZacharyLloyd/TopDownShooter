@@ -51,11 +51,18 @@ public class Stats : MonoBehaviour
     }
     private void Start()
     {
-        if (pawn.stats.startingWeapon != null)
+        while (true)
         {
-            Debug.Log(startingWeapon);
-            pawn.EquipWeapon(startingWeapon);
-            startingWeapon.owner = this.pawn;
+
+
+            if (pawn.stats.startingWeapon != null)
+            {
+
+                pawn.EquipWeapon(startingWeapon);
+                startingWeapon.owner = this.pawn;
+                Debug.Log(pawn == null ? "there is a pawn" : "there is no pawn");
+                break;
+            }
         }
     }
     /// <summary>
@@ -116,35 +123,50 @@ public class Stats : MonoBehaviour
     /// </summary>
     public void inventoryUIUpdate()
     {
-        ////HUD is what is used to display weapons in inventory
-        //HUD display = GameManager.instance.headsUpDisplay;
-        //int j = 1;
-        ////Cycle through inventory and display ui accordingly
-        //for (int i = 0; i < inventory.Length; i++)
-        //{
-        //    if (inventory[i] != null)
-        //    {
-        //        if (weaponEquipped != null)
-        //        {
-        //            if (weaponEquipped.GetType() == inventory[i].GetType())
-        //            {
-        //                display.weaponSlots[0].slotImage.sprite = weaponEquipped.weaponSprite;
-        //                display.weaponSlots[0].keybindNumber.text = (i + 1).ToString();
-        //                display.weaponSlots[0].gameObject.SetActive(true);
-        //            }
-        //            else
-        //            {
-        //                display.weaponSlots[j].slotImage.sprite = inventory[i].weaponSprite;
-        //                display.weaponSlots[j].keybindNumber.text = (i + 1).ToString();
-        //                display.weaponSlots[j].gameObject.SetActive(true);
-        //                j++;
-        //            }
-        //        }
-        //    }
-        //    else
-        //    {
-        //        display.weaponSlots[i].gameObject.SetActive(false);
-        //    }
-        //}
+        //HUD is what is used to display weapons in inventory
+        HUD display = GameManager.instance.headsUpDisplay;
+        int j = 1;
+        //Cycle through inventory and display ui accordingly
+        for (int i = 0; i < inventory.Length; i++)
+        {
+            if (inventory[i] != null)
+            {
+                if (weaponEquipped != null)
+                {
+                    if (weaponEquipped.GetType() == inventory[i].GetType())
+                    {
+                        display.inventorySlots[0].slotImage.sprite = weaponEquipped.weaponSprite;
+                        display.inventorySlots[0].weaponType.text = weaponEquipped.currentWeaponType.ToString();
+                        switch (weaponEquipped.currentWeaponType)
+                        {
+                            case Weapon.weaponType.none:
+                                break;
+                            case Weapon.weaponType.pistol:
+                                display.inventorySlots[0].ammo.text = pistolAmmoCurrent.ToString();
+                                break;
+                            case Weapon.weaponType.smg:
+                                display.inventorySlots[0].ammo.text = smgAmmoCurrent.ToString();
+                                break;
+                            case Weapon.weaponType.rifle:
+                                display.inventorySlots[0].ammo.text = rifleAmmoCurrent.ToString();
+                                break;
+                            default:
+                                break;
+                        }
+                        display.inventorySlots[0].gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        display.inventorySlots[j].slotImage.sprite = inventory[i].weaponSprite;
+                        display.inventorySlots[j].gameObject.SetActive(true);
+                        j++;
+                    }
+                }
+            }
+            else
+            {
+                display.inventorySlots[i].gameObject.SetActive(false);
+            }
+        }
     }
 }

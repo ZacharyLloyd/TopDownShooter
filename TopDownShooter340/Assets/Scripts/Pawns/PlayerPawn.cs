@@ -33,6 +33,7 @@ public class PlayerPawn : Pawn
     public override void EquipWeapon(Weapon weapon)
     {
         base.EquipWeapon(weapon);
+        stats.inventoryUIUpdate();
     }
     /*Unequip the weapon by destorying it and setting weaponEquipped to null
      since there is no longer a weapon equiped*/
@@ -43,7 +44,6 @@ public class PlayerPawn : Pawn
     //Handle inventory changes
     public override void ManageInventory()
     {
-        stats.inventoryUIUpdate();
         base.ManageInventory();
     }
     //IK hands to appear in the right spot for the weapon

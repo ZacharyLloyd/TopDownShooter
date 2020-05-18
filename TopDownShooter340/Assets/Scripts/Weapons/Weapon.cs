@@ -6,7 +6,7 @@ public class Weapon : MonoBehaviour
 {
     [Header("UI")]
     public Sprite weaponSprite;
-
+    [Header("Owner of Weapon")]
     public Pawn owner;
 
     [Header("Transform Postions")]
@@ -56,9 +56,10 @@ public class Weapon : MonoBehaviour
         //Rotate the bullet since when it instantiates it does not fire straight
         bullet.gameObject.transform.rotation = Quaternion.Euler(90f, 0f, 60f);
         bullet.weaponThatShot = this;
+        stats.inventoryUIUpdate();
     }
     public virtual void AddAmmo(Stats stats)
     {
-
+        stats.inventoryUIUpdate();
     }
 }

@@ -267,17 +267,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a620c114ea83df4892153a89e99e44a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponSprite: {fileID: 0}
+  weaponSprite: {fileID: 21300000, guid: f59aa6b06242a4e4e90f8c5ed9560ff6, type: 3}
+  owner: {fileID: 0}
   gunSlot: {fileID: 0}
   desiredLeftHand: {fileID: 1790766324}
   desiredRightHand: {fileID: 394423579}
   pointOfFire: {fileID: 51920288463871327}
-  bulletTravelSpeed: 0
-  damage: 0
+  bulletTravelSpeed: 10
+  damage: 50
   shootCooldownCurrent: 0
-  shootCooldownMax: 0
-  bulletPrefab: {fileID: 0}
-  ammoToAdd: 0
+  shootCooldownMax: 0.5
+  bulletPrefab: {fileID: -2137455336547010063, guid: ec4809a5aeed80242a4e3bd1cbd40381,
+    type: 3}
+  ammoToAdd: 20
   currentWeaponType: 3
 --- !u!65 &488478092828975942
 BoxCollider:
@@ -290,8 +292,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 2.6208956}
-  m_Center: {x: 0, y: 0, z: 0.08137599}
+  m_Size: {x: 1, y: 0.23085092, z: 1.3992251}
+  m_Center: {x: 0, y: 0.09109993, z: -0.0656641}
 --- !u!114 &844227161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -305,6 +307,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 0
+  isPickedUp: 0
   weapon: {fileID: 3540033905369499495}
 --- !u!1 &2802913778840474223
 GameObject:
@@ -408,7 +411,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4680573745365942409}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.0005, y: 0.1066, z: 0.8543}
+  m_LocalPosition: {x: -0.0005, y: 0.1066, z: 0.892}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2802913778840243789}

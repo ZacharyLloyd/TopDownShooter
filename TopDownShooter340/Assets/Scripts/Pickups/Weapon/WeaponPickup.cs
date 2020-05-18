@@ -32,7 +32,8 @@ public class WeaponPickup : Pickup
             }
             isPickedUp = true;
             gameObject.SetActive(false);
-            base.OnPickup(target); 
+            base.OnPickup(target);
+            targetStats.inventoryUIUpdate();
         }
     }
 
