@@ -15,10 +15,17 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        HandleCrouch();
-        HandleMovement();
-        HandleShooting();
-        HandleInventory();
+        if (Input.GetButtonDown("Pause"))
+        {
+            GameManager.instance.Pause();
+        }
+        if (GameManager.instance.isPaused == false)
+        {
+            HandleCrouch();
+            HandleMovement();
+            HandleShooting();
+            HandleInventory(); 
+        }
     }
     //Check to see if input for crouching was pressed
     void HandleCrouch()

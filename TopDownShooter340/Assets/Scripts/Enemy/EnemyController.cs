@@ -42,21 +42,27 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(target != null)
+        if (GameManager.instance.isPaused == false)
         {
-            agent.SetDestination(target.position);
+            if (target != null)
+            {
+                agent.SetDestination(target.position);
+            } 
         }
     }
     private void FixedUpdate()
     {
-        //Create a vector that is from the to our target
-        Vector3 desiredVelocity = Vector3.MoveTowards(transform.position, agent.desiredVelocity, agent.acceleration);
-        agent.transform.LookAt(target.transform);
-        //Instead of using the x go with the z
-        Vector3 input = transform.InverseTransformDirection(desiredVelocity);
-        //Pass in values for our x and z axis for horizontal and vertical movement
-        pawn.animator.SetFloat("Horizontal", input.x);
-        pawn.animator.SetFloat("Vertical", input.z);
+        if (GameManager.instance.isPaused == false)
+        {
+            //Create a vector that is from the to our target
+            Vector3 desiredVelocity = Vector3.MoveTowards(transform.position, agent.desiredVelocity, agent.acceleration);
+            agent.transform.LookAt(target.transform);
+            //Instead of using the x go with the z
+            Vector3 input = transform.InverseTransformDirection(desiredVelocity);
+            //Pass in values for our x and z axis for horizontal and vertical movement
+            pawn.animator.SetFloat("Horizontal", input.x);
+            pawn.animator.SetFloat("Vertical", input.z); 
+        }
     }
     private void OnAnimatorMove()
     {
