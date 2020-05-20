@@ -33,7 +33,10 @@ public class WeaponPickup : Pickup
             isPickedUp = true;
             gameObject.SetActive(false);
             base.OnPickup(target);
-            targetStats.inventoryUIUpdate();
+            if (targetStats.pawn.GetType() == typeof(PlayerPawn))
+            {
+                targetStats.inventoryUIUpdate(); 
+            }
         }
     }
 

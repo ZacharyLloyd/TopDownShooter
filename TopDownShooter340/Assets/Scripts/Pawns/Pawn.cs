@@ -36,6 +36,8 @@ public abstract class Pawn : MonoBehaviour
     public float timeToDie;
     public float reset;
 
+    public SpawnPoint spawner;
+
     // Start is called before the first frame update
     protected virtual void Awake()
     {
@@ -203,10 +205,9 @@ public abstract class Pawn : MonoBehaviour
     {
         if (isDead == true)
         {
-            Destroy(gameObject);
+            Destroy(stats.gameObject);
         }
     }
-
     protected Collider[] FindAllCollidersInChildren()
     {
         List<Collider> childrenColliders = new List<Collider>();

@@ -74,4 +74,12 @@ public class PlayerPawn : Pawn
         }
         catch { }
     }
+    public void OnDestroy()
+    {
+        GameManager.instance.DecreaseLives();
+        if(GameManager.PlayerLives <= 0)
+        {
+            spawner.StopSpawning();
+        }
+    }
 }

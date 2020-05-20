@@ -12,8 +12,7 @@ public class Stats : MonoBehaviour
 
     [Header("Health")]
     [SerializeField, Range(0f, 100f), Tooltip("Current health")] public float currentHealth;
-    [SerializeField, Range(0f, 100f), Tooltip("Current max health")] private float maxHealth = 100f;
-    public Slider healthFill;
+    [SerializeField, Range(0f, 100f), Tooltip("Current max health")] public float maxHealth = 100f;
 
     [Header("AmmoDisplay")]
     public TextMeshProUGUI currentAmmoText;
@@ -73,16 +72,7 @@ public class Stats : MonoBehaviour
     public void TakeDamage(float damageToTake)
     {
         currentHealth -= damageToTake;
-        HealthUIUpdate();
-    }
-    //Filling the health ui to match the players health
-    void HealthUIUpdate()
-    {
-        if (healthFill != null)
-        {
-            //fill amount is equal to current health
-            healthFill.value = currentHealth / maxHealth;
-        }
+        GameManager.instance.HealthUIUpdate();
     }
     /// <summary>
     /// switch the ammo current and max displayed based on the current weapon we have equipped

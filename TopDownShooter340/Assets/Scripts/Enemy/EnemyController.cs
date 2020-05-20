@@ -47,7 +47,12 @@ public class EnemyController : MonoBehaviour
             if (target != null)
             {
                 agent.SetDestination(target.position);
-            } 
+            }
+            else
+            {
+                target = GameManager.instance.player.transform;
+                agent.SetDestination(target.position);
+            }
         }
     }
     private void FixedUpdate()

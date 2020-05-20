@@ -12,6 +12,8 @@ public class SpawnPoint : MonoBehaviour
     public int spawnMax;
     public bool spawningFull;
 
+    public string tagAs;
+
     public float time;
 
     public const int RESET = 0;
@@ -23,12 +25,12 @@ public class SpawnPoint : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         //We get our start point
         startPoint = transform;
 
         //The spawning location by default wil be the start point
         locationToSpawn = startPoint;
-
         spawnCycle = SpawnCycle();
         StartCoroutine(spawnCycle);
     }
@@ -56,6 +58,21 @@ public class SpawnPoint : MonoBehaviour
     public void SpawnObjects()
     {
         Pawn newPawn = Instantiate(stats.gameObject, locationToSpawn).GetComponentInChildren<Pawn>();
+        newPawn.gameObject.tag = tagAs;
+        if (newPawn.GetType() == typeof(PlayerPawn))
+        {
+            newPawn.spawner = this;
+            if (GameManager.PlayerLives > 0)
+            {
+                GameManager.SetPlayer((PlayerPawn)newPawn);
+                CameraController.ScanForPlayer();
+                GameManager.instance.HealthUIUpdate(); 
+            }
+            else
+            {
+                StopCoroutine(spawnCycle);
+            }
+        }
         actorsSpawned.Add(newPawn);
     }
 
@@ -99,6 +116,7 @@ public class SpawnPoint : MonoBehaviour
                 SpawnObjects();
                 time = RESET;
             }
+            
             yield return null;
         }
     }
@@ -109,4 +127,8 @@ public class SpawnPoint : MonoBehaviour
         Gizmos.DrawSphere(transform.position, 1);
     }
 
+    public void StopSpawning()
+    {
+        StopCoroutine(spawnCycle);
+    }
 }

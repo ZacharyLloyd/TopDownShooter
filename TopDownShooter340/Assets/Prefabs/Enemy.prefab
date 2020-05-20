@@ -149,6 +149,22 @@ CharacterJoint:
   m_EnablePreprocessing: 0
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!54 &363788016
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2709232148812366195}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 2
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!136 &6248970292495683799
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -163,6 +179,28 @@ CapsuleCollider:
   m_Height: 1.8241704
   m_Direction: 1
   m_Center: {x: 0.031089842, y: 0.9026271, z: 0}
+--- !u!195 &363788017
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2709232148812366195}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 2
+  avoidancePriority: 50
+  m_AngularSpeed: 10
+  m_StoppingDistance: 6
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!114 &6248970292495683798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,6 +224,7 @@ MonoBehaviour:
   time: 0
   timeToDie: 7
   reset: 0
+  spawner: {fileID: 0}
   chaseDistance: 10
   shootingDistance: 5
   currentMoveState: 0
@@ -194,44 +233,6 @@ MonoBehaviour:
   isShooting: 0
   isChasing: 0
   isEvading: 0
---- !u!54 &363788016
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2709232148812366195}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 2
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 0
---- !u!195 &363788017
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2709232148812366195}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 2
-  avoidancePriority: 50
-  m_AngularSpeed: 10
-  m_StoppingDistance: 6
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!54 &483376990
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -460,7 +461,6 @@ MonoBehaviour:
   spawner: {fileID: 0}
   currentHealth: 0
   maxHealth: 100
-  healthFill: {fileID: 0}
   currentAmmoText: {fileID: 0}
   maxAmmoText: {fileID: 0}
   startingWeapon: {fileID: 7464847549559389920}
@@ -1020,32 +1020,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3540033905369499495, guid: 835f76b980375124aada70a539024927,
-        type: 3}
-      propertyPath: bulletTravelSpeed
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 3540033905369499495, guid: 835f76b980375124aada70a539024927,
-        type: 3}
-      propertyPath: damage
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 3540033905369499495, guid: 835f76b980375124aada70a539024927,
-        type: 3}
-      propertyPath: shootCooldownMax
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3540033905369499495, guid: 835f76b980375124aada70a539024927,
-        type: 3}
-      propertyPath: bulletPrefab
-      value: 
-      objectReference: {fileID: -2137455336547010063, guid: ec4809a5aeed80242a4e3bd1cbd40381,
-        type: 3}
-    - target: {fileID: 3540033905369499495, guid: 835f76b980375124aada70a539024927,
-        type: 3}
-      propertyPath: ammoToAdd
-      value: 20
-      objectReference: {fileID: 0}
     - target: {fileID: 2802913778840243789, guid: 835f76b980375124aada70a539024927,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1116,6 +1090,16 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 51920288463871327, guid: 835f76b980375124aada70a539024927,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.001
+      objectReference: {fileID: 0}
+    - target: {fileID: 51920288463871327, guid: 835f76b980375124aada70a539024927,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.916
+      objectReference: {fileID: 0}
     - target: {fileID: 488478092828975942, guid: 835f76b980375124aada70a539024927,
         type: 3}
       propertyPath: m_Size.x
@@ -1145,16 +1129,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Center.z
       value: 0.026687384
-      objectReference: {fileID: 0}
-    - target: {fileID: 51920288463871327, guid: 835f76b980375124aada70a539024927,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.001
-      objectReference: {fileID: 0}
-    - target: {fileID: 51920288463871327, guid: 835f76b980375124aada70a539024927,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.916
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 835f76b980375124aada70a539024927, type: 3}

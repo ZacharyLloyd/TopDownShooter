@@ -54,7 +54,6 @@ public class Bullet : MonoBehaviour
             //check health and is dead bool
             if (other.GetComponentInParent<Stats>().currentHealth <= 0 && !other.GetComponent<Pawn>().isDead)
             {
-                Debug.Log("it is working");
                 //enable ragdoll
                 other.GetComponent<Pawn>().EnableRagDoll();
             }
