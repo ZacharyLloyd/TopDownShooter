@@ -38,6 +38,9 @@ public abstract class Pawn : MonoBehaviour
 
     public SpawnPoint spawner;
 
+    [Header("Drops for enemies")]
+    public bool droppedSomething;
+
     // Start is called before the first frame update
     protected virtual void Awake()
     {
