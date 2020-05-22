@@ -28,7 +28,7 @@ public class Pickup : MonoBehaviour
 
     protected void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponentInParent<Stats>() != null)
+        if (other.GetComponentInParent<Stats>() != null && other.GetComponent<Pawn>().isDead == false)
         {
             OnPickup(other.gameObject);
         }

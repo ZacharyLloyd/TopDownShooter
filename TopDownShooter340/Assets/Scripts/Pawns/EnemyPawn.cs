@@ -214,6 +214,8 @@ public class EnemyPawn : Pawn
             GetComponent<Rigidbody>().isKinematic = true;
             SetColliderEnablementOfChildrenRigidBodies(true);
             isDead = true;
+            GetComponent<WeightedItemDrop>().OnDrop();
+            stats.weaponEquipped.owner = null;
         }
         catch { }
     }

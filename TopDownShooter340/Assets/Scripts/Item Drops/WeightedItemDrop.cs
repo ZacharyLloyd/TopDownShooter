@@ -49,7 +49,7 @@ public class WeightedItemDrop : MonoBehaviour
         CDFArray.Clear();
 
         int density = 0;
-        //SO... go through my weighted drop list, and track cummulative
+        //go through my weighted drop list, and track cummulative
         foreach (WeightedObject drop in itemsToDrop)
         {
             int index = Array.IndexOf(itemsToDrop.ToArray(), drop);
