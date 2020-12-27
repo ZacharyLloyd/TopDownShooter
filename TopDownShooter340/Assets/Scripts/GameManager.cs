@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     public static int PlayerLives;
     public int playerLives;
     public Text livesText;
-    public Slider healthFill;
+    public UnityEngine.UI.Slider healthFill;
 
     [Header("HUD")]
     public HUD headsUpDisplay;
@@ -23,6 +23,9 @@ public class GameManager : MonoBehaviour
     [Header("Pause")]
     public bool isPaused;
     public GameObject PauseMenu;
+
+    [HideInInspector] public float spawnPreference;
+    public UnityEngine.UI.Slider prefSlider;
 
     //Awake runs before all Starts
     private void Awake()
@@ -51,6 +54,7 @@ public class GameManager : MonoBehaviour
         {
             spawnedPlayers.Add(pawn);
         }
+        LoadPreferences();
     }
 
     public void Pause()
@@ -94,4 +98,25 @@ public class GameManager : MonoBehaviour
         instance.player = pawn.gameObject;
         instance.playerStats = pawn.stats;
     }
+    //Save prefs for spawning
+    public void SavePreferences()
+    {
+        PlayerPrefs.SetFloat("Pref", spawnPreference);
+        UpdateUI();
+    }
+    //Load prefs for spawning
+    public void LoadPreferences()
+    {
+        spawnPreference = PlayerPrefs.GetFloat("Pref");
+        UpdateUI();
+    }
+    //Update Pref UI
+    public void UpdateUI()
+    {
+        if(prefSlider != null)
+        {
+            prefSlider.value = spawnPreference;
+        }
+    }
+
 }

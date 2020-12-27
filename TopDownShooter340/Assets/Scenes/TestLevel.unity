@@ -2168,6 +2168,8 @@ MonoBehaviour:
   headsUpDisplay: {fileID: 0}
   isPaused: 0
   PauseMenu: {fileID: 143690571}
+  spawnPreference: 0
+  prefSlider: {fileID: 1669210581}
 --- !u!4 &849689006
 Transform:
   m_ObjectHideFlags: 0
@@ -2265,7 +2267,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 849689005}
-        m_MethodName: Unpause
+        m_MethodName: SavePreferences
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
