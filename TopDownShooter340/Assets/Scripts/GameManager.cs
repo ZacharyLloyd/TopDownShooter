@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour
 
     [HideInInspector] public float spawnPreference;
     public UnityEngine.UI.Slider prefSlider;
+    [Header("Spawnpoints for player")]
+    public List<GameObject> spawnpoints = new List<GameObject>();
 
     //Awake runs before all Starts
     private void Awake()
