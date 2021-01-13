@@ -7,7 +7,8 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    [SerializeField] private List<Pawn> spawnedPlayers;
+    [SerializeField] private List<Pawn> spawnedPlayers = new List<Pawn>();
+    public List<GameObject> enemies = new List<GameObject>();
 
     [Header("Number of player lives")]
     public GameObject player;

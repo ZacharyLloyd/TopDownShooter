@@ -16,6 +16,7 @@ public class EnemyController : MonoBehaviour
         pawn = GetComponentInChildren<EnemyPawn>();
         target = GameObject.FindGameObjectWithTag("Player").transform;
         agent = pawn.GetComponent<NavMeshAgent>();
+        GameManager.instance.enemies.Add(this.gameObject);
         if(pawn.stats.weaponEquipped == null)
         {
             //Add the weapons in the scene to the list
