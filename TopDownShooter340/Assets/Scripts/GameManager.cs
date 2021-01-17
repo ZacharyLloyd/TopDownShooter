@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     public bool isPaused;
     public GameObject PauseMenu;
 
-    [HideInInspector] public float spawnPreference;
+    public float spawnPreference;
     public UnityEngine.UI.Slider prefSlider;
     [Header("Spawnpoints for player")]
     public List<GameObject> spawnpoints = new List<GameObject>();
@@ -106,19 +106,25 @@ public class GameManager : MonoBehaviour
     {
         PlayerPrefs.SetFloat("Pref", spawnPreference);
         UpdateUI();
+        Debug.Log(spawnPreference);
     }
     //Load prefs for spawning
     public void LoadPreferences()
     {
-        spawnPreference = PlayerPrefs.GetFloat("Pref");
-        UpdateUI();
+        if (PlayerPrefs.HasKey("Prefs"))
+        {
+            spawnPreference = PlayerPrefs.GetFloat("Pref");
+            Debug.Log(spawnPreference);
+            UpdateUI();
+        }
+        else Debug.Log("my shit is broke");
     }
     //Update Pref UI
     public void UpdateUI()
     {
         if(prefSlider != null)
         {
-            prefSlider.value = spawnPreference;
+             spawnPreference = prefSlider.value;
         }
     }
 

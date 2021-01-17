@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PSP : MonoBehaviour
 {
-    void Awake()
+    void Start()
     {
-        GameManager.instance.spawnpoints.Add(this.gameObject);
+        GameManager.instance.spawnpoints.Add(gameObject);
     }
 }
