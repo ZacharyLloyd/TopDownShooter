@@ -1114,7 +1114,7 @@ GameObject:
   - component: {fileID: 442334527}
   - component: {fileID: 442334526}
   m_Layer: 5
-  m_Name: CloseToTeammateText
+  m_Name: CloseToEnemyText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1172,7 +1172,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Closer to Teammates
+  m_Text: Closer to Enemy
 --- !u!222 &442334527
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4164,7 +4164,7 @@ GameObject:
   - component: {fileID: 1716146313}
   - component: {fileID: 1716146312}
   m_Layer: 5
-  m_Name: CloseToEnemyText
+  m_Name: FurtherToEnemyText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4222,7 +4222,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Closer to Enemies
+  m_Text: Further from Enemy
 --- !u!222 &1716146313
 CanvasRenderer:
   m_ObjectHideFlags: 0

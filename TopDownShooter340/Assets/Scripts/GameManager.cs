@@ -104,18 +104,18 @@ public class GameManager : MonoBehaviour
     //Save prefs for spawning
     public void SavePreferences()
     {
-        PlayerPrefs.SetFloat("Pref", spawnPreference);
-        UpdateUI();
+        spawnPreference = prefSlider.value;
+        PlayerPrefs.SetFloat("preference", spawnPreference);
         Debug.Log(spawnPreference);
     }
     //Load prefs for spawning
     public void LoadPreferences()
     {
-        if (PlayerPrefs.HasKey("Prefs"))
+        if (PlayerPrefs.HasKey("preference"))
         {
-            spawnPreference = PlayerPrefs.GetFloat("Pref");
-            Debug.Log(spawnPreference);
+            spawnPreference = PlayerPrefs.GetFloat("preference");
             UpdateUI();
+            Debug.Log(spawnPreference);
         }
         else Debug.Log("my shit is broke");
     }
@@ -124,7 +124,7 @@ public class GameManager : MonoBehaviour
     {
         if(prefSlider != null)
         {
-             spawnPreference = prefSlider.value;
+            prefSlider.value = spawnPreference;
         }
     }
 
