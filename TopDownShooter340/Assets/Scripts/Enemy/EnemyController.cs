@@ -38,6 +38,7 @@ public class EnemyController : MonoBehaviour
             target = GameObject.FindGameObjectWithTag("Player").transform;
             pawn.ChangeMoveStateTo(EnemyPawn.AIMoveState.Idle);
         }
+        
     }
 
     // Update is called once per frame

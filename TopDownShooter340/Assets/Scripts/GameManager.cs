@@ -107,6 +107,9 @@ public class GameManager : MonoBehaviour
         spawnPreference = prefSlider.value;
         PlayerPrefs.SetFloat("preference", spawnPreference);
         Debug.Log(spawnPreference);
+        ISS.Instance.GetEnemyPosition(enemies[0].transform);
+        ISS.Instance.FindDistances();
+        ISS.Instance.FindSpawnPoint();
     }
     //Load prefs for spawning
     public void LoadPreferences()

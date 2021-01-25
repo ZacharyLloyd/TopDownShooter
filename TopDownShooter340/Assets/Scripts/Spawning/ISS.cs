@@ -21,20 +21,22 @@ public class ISS : MonoBehaviour
         #endregion
     }
     //This function is used to find the location of the enemy so we can take that data and use it to find a spawn point best suited to the slider value
-    public static Transform GetEnemyPosition(Transform t)
+    public Transform GetEnemyPosition(Transform t)
     {
         foreach (GameObject enemy in GameManager.instance.enemies)
         {
             if (t == enemy.transform)
             {
+                enemysLocation = enemy.transform;
                 return enemy.transform; 
             }
-            Instance.enemysLocation = enemy.transform;
+            
+            Debug.Log(enemysLocation);
         }
         return null;
     }
     //This function will be used to find the distance between the enemy and the spawn points
-    List<float?> FindDistances()
+    public List<float?> FindDistances()
     {
         foreach(GameObject spawnpoint in GameManager.instance.spawnpoints)
         {
@@ -46,15 +48,15 @@ public class ISS : MonoBehaviour
     }
     //This function is used to find a spawn point that relates to the slider value of how far the player wants to be from the enemy
     //taking the distance found from FindDistance
-    void FindSpawnPoint()
+    public void FindSpawnPoint()
     {
-        int index = -1;
+        int index;
         if(GameManager.instance.prefSlider != null)
         {
             float? x = distances.Min() + GameManager.instance.prefSlider.value * (distances.Max() - distances.Min());
             index = distances.BinarySearch(x);
+            Debug.Log(index);
         }
-        Debug.Log(index);
     }
     //This function is used to actually instantiate the player into the game once everything has been calculated
     void SpawnPlayer()
